@@ -1,0 +1,352 @@
+<div class="d-flex">
+
+  <admin-sidebar></admin-sidebar>
+
+  <div class="page-content bg-light-subtle p-3">
+      <section class="right-panel">
+
+          <div class="row mb-5">
+
+              <div class="col-lg-12 col-md-6 col-sm-12 d-flex">
+                  <div class="col-lg-8 col-md-12 col-sm-12">
+                      <h1 class="h3 fw-bold">Channels</h1>
+                  </div>
+              </div>
+          </div>
+
+
+          <!-- Beginning of Table Section  -->
+
+
+          <div class="row mb-5">
+            <div class="d-flex mb-3">
+              <div class="form-group me-5">
+                <div class="input-group">
+                  <input type="text" class="form-control search" placeholder="Enter Channel Name"
+                  name="searchText" [(ngModel)]="searchText" autocomplete="off" (keyup)="applySearchFilter()"
+                  aria-label="Username" aria-describedby="basic-addon1" id="search" >
+                  <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="float-end">
+                <!-- <button mat-raised-button matTooltip="New Channel" matTooltipPosition="above" class="btn text-white btn-primary me-3" (click)="openOffCanvas()"> -->
+                <button mat-raised-button matTooltip="New Channel" matTooltipPosition="above" class="btn text-white btn-primary me-3"
+                data-bs-toggle="offcanvas" href="#create-channel-item"
+                role="button" aria-controls="viewUserDetails-item">
+                  <i class="bi bi-plus centered-text"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-5">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card border-secondary-subtle mb-3">
+                <div class="card-body">
+
+                  <div *ngIf="noServerList"
+                    class="no-data-text bg-light-grey"
+                    style="text-align: center;
+                    vertical-align: middle;
+                    padding-top: 5%;
+                    padding-bottom: 5%;
+                    font-weight: bolder;" >
+                      No Data
+                  </div>
+
+                  <div *ngIf="isLoadingServerList"
+                    class="no-data-text bg-light-grey"
+                    style="text-align: center;
+                    vertical-align: middle;
+                    padding-top: 5%;
+                    padding-bottom: 5%;
+                    font-weight: bolder;" >
+                      <table-skeleton-loader></table-skeleton-loader>
+                  </div>
+
+                  <div *ngIf="!isLoadingServerList && !noServerList"
+                    class="table-responsive border-primary mb-5">
+                      <table class="table table-hover mb-5" style="word-wrap: normal; height: auto;" >
+                        <thead class="mb-1">
+                          <tr>
+                            <th class="centered-text">S/N</th>
+                            <th class="centered-text">Channel Name</th>
+                            <th class="centered-text">Date Created</th>
+                            <th class="centered-text">Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <ng-container id="filteredTable" *ngIf="filteredServerList.length > 0 && searchText.length > 0">
+                            <tr *ngFor="let server of filteredServerList | paginate: { itemsPerPage: 20, currentPage: filteredServerListPage,
+                              totalItems:filteredServerListLength}; index as i ">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ server.serverName }}</td>
+                                <td>
+                                  <div class="flex-column">
+                                    {{ server.createdAt | date:'medium' }}
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="d-flex">
+                                    <button (click)="update_a_server(server)" mat-raised-button matTooltip="Update" matTooltipPosition="above" class="btn text-white btn-primary btn-sm me-3 centered-text"
+                                      data-bs-toggle="offcanvas" href="#viewReplies-item"
+                                      role="button" aria-controls="viewReplies-item">
+                                      <i class="bi bi-pencil"></i>
+                                    </button>
+
+                                    <button (click)="deleteServer($event, server)" mat-raised-button matTooltip="Delete" matTooltipPosition="above" class="btn text-white btn-danger btn-sm me-3 centered-text"
+                                      data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                      role="button" aria-controls="viewReplies-item">
+                                      <i class="bi bi-trash"></i>
+                                    </button>
+
+                                    <!-- <button mat-raised-button matTooltip="Deactivate" matTooltipPosition="above" class="btn text-white btn-dark btn-sm centered-text" data-bs-toggle="modal"
+                                      data-bs-target="#deactivateModal" role="button"
+                                      aria-controls="viewReplies-item">
+                                      <i class="bi bi-shield-x"></i>
+                                    </button> -->
+                                  </div>
+
+                                </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-container id="serverTable" *ngIf="filteredServerList.length < 1 && searchText.length < 1">
+                            <tr *ngFor="let server of serverList | paginate: { itemsPerPage: 20, currentPage: serverListPage,
+                              totalItems:serverListLength}; index as i">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ server.serverName }}</td>
+                                <td>
+                                  <div class="flex-column">
+                                    {{ server.createdAt | date:'medium' }}
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="d-flex">
+                                    <button (click)="update_a_server(server)" mat-raised-button matTooltip="Update" matTooltipPosition="above" class="btn text-white btn-primary btn-sm me-3 centered-text"
+                                      data-bs-toggle="offcanvas" href="#viewReplies-item"
+                                      role="button" aria-controls="viewReplies-item">
+                                      <i class="bi bi-pencil"></i>
+                                    </button>
+
+                                    <button (click)="deleteServer($event, server)" mat-raised-button matTooltip="Delete" matTooltipPosition="above" class="btn text-white btn-danger btn-sm me-3 centered-text"
+                                      data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                      role="button" aria-controls="viewReplies-item">
+                                      <i class="bi bi-trash"></i>
+                                    </button>
+                                  <!--
+                                    <button mat-raised-button matTooltip="Deactivate" matTooltipPosition="above" class="btn text-white btn-dark btn-sm centered-text" data-bs-toggle="modal"
+                                      data-bs-target="#deactivateModal" role="button"
+                                      aria-controls="viewReplies-item">
+                                      <i class="bi bi-shield-x"></i>
+                                    </button> -->
+                                  </div>
+
+                                </td>
+                            </tr>
+                          </ng-container>
+                        </tbody>
+                      </table>
+
+
+                      <div *ngIf="filteredServerList.length > 0" class="d-flex justify-content-between align-items-center mt-4 pt-4">
+                        <a>
+                          <pagination-controls class="my-pagination" (pageChange)="filteredServerListPage = $event"></pagination-controls>
+                        </a>
+                      </div>
+
+                      <div *ngIf="filteredServerList.length < 1" class="d-flex justify-content-between align-items-center mt-4 pt-4">
+                        <a>
+                          <pagination-controls class="my-pagination" (pageChange)="serverListPage = $event"></pagination-controls>
+                        </a>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </section>
+  </div>
+</div>
+
+<!-- Slide out window for Create Channel  -->
+<div #offcanvas id="myOffcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="create-channel-item"
+    aria-labelledby="viewReplies-canvas">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="search-canvas">Create New Channel</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+    <form [formGroup]="newChannelForm" (ngSubmit)="createNewServer($event)">
+
+        <div class="row mb-3">
+            <div class="form-group mb-3 col-lg-12 col-md-12 col-sm-12">
+              <label class="form-label text-dark-emphasis fw-semibold">
+                Channel Name
+              </label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">
+                  <i class="bi bi-house-fill"></i>
+                </span>
+                <input type="text" autocomplete="off" class="form-control" formControlName="serverName"
+                  placeholder="Enter Channel Name" />
+              </div>
+
+              <div style="color: red !important;" *ngIf="serverName?.invalid && (serverName?.dirty || serverName?.touched)">
+                <div *ngIf="serverName?.errors?.['required']">Channel Name is required.</div>
+              </div>
+
+            </div>
+
+            <div class="form-group mb-3 col-lg-12 col-md-12 col-sm-12">
+              <label class="form-label text-dark-emphasis fw-semibold">
+                Channel Description
+              </label>
+              <div class="input-group mb-3">
+                <textarea rows="3" placeholder="Enter Channel Description"
+                autocomplete="off" class="form-control" formControlName="serverDescription"></textarea>
+              </div>
+
+              <div style="color: red !important;" *ngIf="serverDescription?.invalid && (serverDescription?.dirty || serverDescription?.touched)">
+                <div *ngIf="serverDescription?.errors?.['required']">Channel Description is required.</div>
+              </div>
+
+            </div>
+
+        </div>
+
+        <div class=" d-flex align-items-center justify-content-center mb-3">
+          <!-- <button type="submit" [attr.data-bs-dismiss]="closeOffCanvas" -->
+            <button type="submit"
+            [disabled]="newChannelForm.invalid || isLoadingCreateServer"
+              class="btn y4c-color text-white me-3 col-lg-10 col-md-8 col-sm-12">
+                <ng-container *ngIf="isLoadingCreateServer">
+                  Please Wait ...
+                </ng-container>
+                <ng-container *ngIf="!isLoadingCreateServer">
+                  Create New Channel
+                </ng-container>
+            </button>
+
+        </div>
+      </form>
+    </div>
+
+</div>
+
+<!-- Slide out window for Update Channel  -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="viewReplies-item"
+    aria-labelledby="viewReplies-canvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="search-canvas">Channel Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="row mb-3">
+            <div class="form-group mb-3 col-lg-12 col-md-12 col-sm-12">
+                <label class="form-label text-dark-emphasis fw-semibold">Channel
+                    Name</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="bi bi-house-fill"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                        placeholder="Enter Channel Name" [(ngModel)]="updateServer.serverName" name="serverName"/>
+                </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-12 col-md-12 col-sm-12">
+                <label class="form-label text-dark-emphasis fw-semibold">Channel
+                    Description</label>
+                <div class="input-group mb-3">
+                    <textarea rows="3" [(ngModel)]="updateServer.description" name="serverDescription" placeholder="Enter Channel Description"
+                        class="form-control"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class=" d-flex align-items-center justify-content-center mb-3">
+            <button (click)="update()" type="button" [disabled]="(updateServer.serverName.trim().length < 1 || updateServer.description.trim().length < 1) || isLoadingUpdateServer"
+                class="btn y4c-color text-white me-3 col-lg-10 col-md-8 col-sm-12">
+
+                <ng-container *ngIf="isLoadingUpdateServer">
+                  Please Wait ...
+                </ng-container>
+
+                <ng-container *ngIf="!isLoadingUpdateServer">
+                  Update Channel
+                </ng-container>
+
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Deactivate Modal  -->
+<div class="modal fade" id="deactivateModal" tabindex="-1"
+    aria-labelledby="deactivateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deactivateModalLabel">Deactivate
+                    Channel
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Are you sure you want to Deactivate this Channel?
+            </div>
+            <div
+                class="modal-footer d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-outline-danger"
+                    data-bs-dismiss="modal">Do Not Deactivate </button>
+                <button type="button" class="btn btn-primary">Yes, Deactivate
+                    Channel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal  -->
+<div class="modal fade" id="deleteModal" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Channel
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Are you sure you want to Delete this Channel?
+            </div>
+            <div
+                class="modal-footer d-flex align-items-center justify-content-center">
+                <button (click)="cancelDeleteServer()" type="button" class="btn btn-outline-danger"
+                    data-bs-dismiss="modal">
+                    Do Not Delete
+                  </button>
+                <button (click)="confirmDeleteServer($event)" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                  Yes, Delete Channel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

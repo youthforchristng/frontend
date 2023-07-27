@@ -1,0 +1,234 @@
+<div class="d-flex align-items-center justify-contents-center">
+  <div class="left-wrapper col-lg-6 col-md-12 col-sm-12 p-5 login-bground">
+
+
+      <div class="logo mb-3">
+          <img src="assets/images/yfc.png" alt="" class="form-logo">
+      </div>
+
+      <div class="text-primary-emphasis col-12 mb-5">
+          <h4 class="display-6 mb-3"><strong>Create your Account</strong></h4>
+          <h6>Enter the correct details in the fields below</h6>
+      </div>
+
+
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <form [formGroup]="registrationform" (ngSubmit)="register()">
+              <div class="row mb-5">
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                    <label class="form-label fw-semibold">Username</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+                        <input type="text" autocomplete="off" class="form-control" formControlName="username" placeholder="Username" />
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="username?.invalid && (username?.dirty || username?.touched)">
+                      <div *ngIf="username?.errors?.['required']">User name is required.</div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                    <label class="form-label fw-semibold">Profile Picture</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">
+                        <i class="bi bi-person-circle"></i>
+                      </span>
+                      <input #myInput (change)="onFileSelected($event)" type="file" class="form-control" formControlName="profilePic">
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="profilePic?.invalid && (profilePic?.dirty || profilePic?.touched)">
+                      <div *ngIf="profilePic?.errors?.['required']">Profile Picture is required.</div>
+                      <div *ngIf="profilePic?.errors?.['invalidSize']">File size should be a minimum of 2MB.</div>
+                      <div *ngIf="profilePic?.errors?.['invalidExtension']">Only JPG, JPEG, and PNG files are allowed.</div>
+                    </div>
+
+                  </div>
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                    <label class="form-label fw-semibold">First name</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+                        <input type="text" autocomplete="off" class="form-control" formControlName="firstname" placeholder="Firstname" />
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="firstname?.invalid && (firstname?.dirty || firstname?.touched)">
+                      <div *ngIf="firstname?.errors?.['required']">First name is required.</div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                    <label class="form-label fw-semibold">Last name</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">
+                        <i class="bi bi-person-circle"></i>
+                      </span>
+                      <input type="text" autocomplete="off" class="form-control" formControlName="lastname" placeholder="Lastname">
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="lastname?.invalid && (lastname?.dirty || lastname?.touched)">
+                      <div *ngIf="lastname?.errors?.['required']">Last name is required.</div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                    <label class="form-label fw-semibold">Email</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">
+                        <i class="bi bi-envelope-fill"></i>
+                      </span>
+                      <input type="text" autocomplete="off" class="form-control" formControlName="email" placeholder="Email">
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                      <div *ngIf="email?.errors?.['required']">
+                        Email is required.
+                      </div>
+                      <div *ngIf="email?.errors?.['pattern']">
+                        Invalid email format.
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">
+                        <i class="bi bi-telephone-fill"></i>
+                      </span>
+                      <input type="text" autocomplete="off" class="form-control" formControlName="phonenumber" placeholder="Phone Number">
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="phonenumber?.invalid && (phonenumber?.dirty || phonenumber?.touched)">
+                      <div *ngIf="phonenumber?.errors?.['required']">Phone number is required.</div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                      <label class="form-label fw-semibold">Date Of Birth</label>
+                      <div class="input-group mb-3">
+                          <span class="input-group-text">
+                            <i class="bi bi-calendar3"></i>
+                          </span>
+                          <input type="date" autocomplete="off" min="1965-01-01" max="2010-12-31" class="form-control" formControlName="dob" placeholder="Date Of Birth">
+
+                      </div>
+
+                    <div style="color: red !important;" *ngIf="dob?.invalid && (dob?.dirty || dob?.touched)">
+                      <div *ngIf="dob?.errors?.['required']">Date of birth is required.</div>
+                      <div *ngIf="dob?.errors?.['dateRangeError']">Invalid date range.</div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+
+                    <label class="form-label fw-semibold">Marital Status</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">
+                        <i class="bi bi-bag-heart-fill"></i>
+                      </span>
+                      <select
+                        formControlName="maritalstatus"
+                        class="form-control">
+                          <option selected disabled [ngValue]="null">SELECT</option>
+                          <option *ngFor="let i of listOfMarital" [ngValue]="i.name">
+                            {{ i.name | uppercase }}
+                          </option>
+                      </select>
+                    </div>
+
+                    <div style="color: red !important;" *ngIf="maritalstatus?.invalid && (maritalstatus?.dirty || maritalstatus?.touched)">
+                      <div *ngIf="maritalstatus?.errors?.['required']">Marital status is required.</div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                      <label class="form-label fw-semibold">Password</label>
+                      <div class="input-group mb-3">
+                          <span class="input-group-text">
+                              <i class="bi bi-lock-fill"></i>
+                          </span>
+
+                          <input [type]="showPassword ? 'text' : 'password'" autocomplete="off" autocomplete="off" class="form-control" formControlName="password" placeholder="Password">
+
+                          <span class="input-group-text" (click)="togglePasswordVisibility()">
+                            <i class="bi " [ngClass]="showPassword ? 'bi-eye-fill' : 'bi-eye-slash-fill' "></i>
+                          </span>
+                      </div>
+
+                    <div style="color: red !important;" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                      <div *ngIf="password?.errors?.['required']">Password is required.</div>
+                      <div *ngIf="password?.errors?.['minlength']">Password must be a minimum of 6 characters.</div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group mb-3 col-lg-6 col-md-12 col-sm-12">
+                      <label class="form-label fw-semibold">Confirm Password</label>
+                      <div class="input-group mb-3">
+                          <span class="input-group-text">
+                              <i class="bi bi-lock-fill"></i>
+                          </span>
+
+                          <input  [type]="showConfirmPassword ? 'text' : 'password'" autocomplete="off" autocomplete="off" class="form-control" formControlName="confirmpassword" placeholder="Confirm Password">
+
+                          <span class="input-group-text" (click)="toggleConfirmPasswordVisibility()">
+                            <i class="bi " [ngClass]="showConfirmPassword ? 'bi-eye-fill' : 'bi-eye-slash-fill' "></i>
+                          </span>
+                      </div>
+
+                    <div style="color: red !important;" *ngIf="confirmpassword?.invalid && (confirmpassword?.dirty || confirmpassword?.touched)">
+                      <div *ngIf="confirmpassword?.errors?.['required']">Confirm password is required.</div>
+                      <div *ngIf="confirmpassword?.errors?.['mustMatch']">Passwords do not match.</div>
+
+                    </div>
+
+                  </div>
+              </div>
+
+              <div class="d-grid col-lg-6 col-md-6 col-sm-12 mx-auto mb-3 text-center">
+                  <button
+                    class="btn btn-lg text-white y4c-color mb-3"
+                    type="submit"
+                    [disabled]="registrationform.invalid || isLoading">
+
+                      <span *ngIf="!isLoading">
+                        Create Account
+                      </span>
+                      <span *ngIf="isLoading">
+                        Please Wait ...
+                      </span>
+
+                  </button>
+
+                  <label class="form-label">
+                    Do you already have an account?
+                  </label>
+                  <label class="form-label">
+                    <a [routerLink]="['/login']">
+                      Login
+                    </a>
+                  </label>
+              </div>
+
+          </form>
+      </div>
+
+  </div>
+
+  <welcome-image></welcome-image>
+
+</div>

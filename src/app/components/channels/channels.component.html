@@ -1,0 +1,414 @@
+<!-- <div class="d-flex"> -->
+
+<!-- <app-sidebar></app-sidebar> -->
+
+<!-- <div *ngIf="activeRoom" class="page-content bg-secondary-subtle" [ngClass]="nightModeService.getNightModeClass()"  style="background-color: red;"> -->
+<div *ngIf="activeRoom" class="page-content bg-secondary-subtle">
+  <!-- Page Header Goes Here -->
+  <div class="page-headers p-3">
+    <div class="page-title">
+      <div class="d-flex">
+        <button
+          class="navbar-toggler align-self-start"
+          type="button"
+          data-bs-toggle="offcanvas"
+          id="side-btn"
+          data-bs-target="#offcanvasDarkNavbar"
+          aria-controls="offcanvasDarkNavbar"
+          aria-label="Toggle navigation"
+        >
+          <i class="bi bi-grid-fill me-3" style="color: #000000"></i>
+        </button>
+
+        <div class="flex-column">
+          <h4>
+            <strong>
+              {{ activeRoom.serverName }}
+            </strong>
+          </h4>
+        </div>
+      </div>
+
+      <div class="page-options">
+        <a
+          (click)="resetSearch()"
+          class="btn btn-primary me-1"
+          data-bs-toggle="offcanvas"
+          href="#searchCanvas-item"
+          role="button"
+          aria-controls="searchCanvas-item"
+        >
+          <i class="bi bi-search"></i>
+        </a>
+
+        <!-- <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-dark rounded"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-three-dots-vertical"></i>
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item" type="button">Leave Channel</button>
+            </li>
+            <li><button class="dropdown-item" type="button">Report</button></li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Body Goes Here -->
+  <div class="page-body">
+    <div class="page-wrapper p-3">
+      <ng-container *ngIf="isLoadingTopics">
+        <div class="chat-bubble">
+          <div class="message">
+            <skeleton-loader></skeleton-loader>
+          </div>
+        </div>
+
+        <div class="chat-bubble">
+          <div class="message">
+            <skeleton-loader></skeleton-loader>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoadingTopics">
+        <ng-container *ngFor="let i of topics">
+          <div
+            [ngClass]="
+              userId == i.ownerId ? 'chat-bubble-sender' : 'chat-bubble'
+            "
+          >
+            <img
+              [src]="i.ownerProfilePic"
+              alt="User Image"
+              class="user-image"
+            />
+            <div [ngClass]="userId == i.ownerId ? 'message-sender' : 'message'">
+              <h4 class="acct-name fw-bold">
+                {{ i.ownerName }}
+              </h4>
+              <span class="time mb-3">
+                {{ i.createdAt | date : "medium" }}
+              </span>
+              <p class="comment mb-3">
+                {{ i.topicDesc }}
+              </p>
+
+              <a
+                (click)="viewReplies(i, $event)"
+                class="btn custom-button btn-sm"
+                data-bs-toggle="offcanvas"
+                href="#viewReplies-item"
+                role="button"
+                aria-controls="viewReplies-item"
+              >
+                <span class="mx-3">Reply</span>
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Page Message Box Goes Here -->
+  <div class="page-message-box p-3">
+    <div class="d-flex">
+      <!-- <button class="send-btn btn text-white y4c-color d-flex">
+                  <i class="bi bi-paperclip"></i>
+              </button> -->
+
+      <textarea
+        [(ngModel)]="message"
+        rows="2"
+        placeholder="Send a message"
+        class="form-control mx-3"
+      >
+      </textarea>
+
+      <button
+        (click)="createNewTopic()"
+        class="send-btn btn text-white y4c-color d-flex custom-btn"
+      >
+        <ng-container *ngIf="!sendingMessage">
+          <span class="mx-3">Send</span>
+          <i class="bi bi-send-fill text-white"></i>
+        </ng-container>
+
+        <span *ngIf="sendingMessage">
+          <img
+            [src]="imageSpinner"
+            alt="Please Wait..."
+            style="margin-left: 30px; text-align: center !important"
+            width="20"
+            height="20"
+          />
+        </span>
+      </button>
+      <!-- <button (click)="sendMessage()" class="send-btn btn text-white y4c-color d-flex">
+                  <span class="mx-3">Send</span>
+                  <i class="bi bi-send-fill text-white"></i>
+              </button> -->
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+
+<!-- Slide out window for View Replies  -->
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="viewReplies-item"
+  aria-labelledby="viewReplies-canvas"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="search-canvas">
+      View Replies
+      <!-- to Topic -->
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="offcanvas-body flex-column" style="height: 100vh; overflow-y: hidden;">
+    <div class="canvas-header" style="height: 75vh; overflow-y: auto;">
+      <div class="post d-flex align-items-start mb-3">
+        <img
+          [src]="activeTopic.ownerProfilePic"
+          alt="User Image"
+          class="user-image"
+        />
+        <div class="mx-3">
+          <h3 class="acct-name fw-bold">
+            {{ activeTopic.ownerName }}
+          </h3>
+          <p class="custom-time mb-1">
+            {{ activeTopic.createdAt | date : "medium" }}
+          </p>
+          <p class="comment mb-1">
+            <!-- {{ activeTopic.topicDesc }} -->
+
+            A town hall different from bala blu, blue blu bulaba. broom broom
+            broom brooooooooom. Bala blu blue blu bulaba. The farmers will make
+            more money. Your lunch will not be imported, cassava garri ewa and
+            ehhh ehhhhnn. The farmer will make money, the dinner would be
+            cassava, eba, ewa and everything. A town hall different from bala
+            blu, blue blu bulaba. broom broom broom brooooooooom. Bala blu blue
+            blu bulaba. The farmers will make more money. Your lunch will not be
+            imported, cassava garri ewa and ehhh ehhhhnn. The farmer will make
+            money, the dinner would be cassava, eba, ewa and everything.
+          </p>
+
+          <div
+            *ngIf="!isLoadingReplies"
+            class="border-top bg-primary-subtle p-2 mb-3"
+          >
+            <strong>{{ replyCount }}</strong> replies
+          </div>
+        </div>
+      </div>
+
+      <ng-container style="background-color: black" *ngIf="isLoadingReplies">
+        <skeleton-loader></skeleton-loader>
+        <skeleton-loader></skeleton-loader>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoadingReplies">
+        <ng-container *ngFor="let i of replies">
+          <div class="reply-container" style="height: auto;">
+            <div class="replies">
+              <div class="d-flex align-items-start">
+                <img [src]="i.profilePic" alt="User Image" class="user-image" />
+                <div class="mx-3">
+                  <h3 class="acct-name fw-bold">{{ i.username }}</h3>
+                  <p class="custom-time mb-1">{{ i.time | date : "medium" }}</p>
+                  <p class="comment">{{ i.text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <hr /> -->
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="canvas-header" style="height: 20vh;">
+      <div class="page-message-box mb-2" *ngIf="!isLoadingReplies">
+        <div class="flex-column">
+          <textarea
+            (keyup)="newReply()"
+            rows="2"
+            placeholder="Send a reply"
+            [(ngModel)]="reply"
+            class="form-control mb-3"
+          ></textarea>
+          <div *ngIf="emptyReply" style="color: red" class="mb-1">
+            Reply can not be empty
+          </div>
+          <button
+            (click)="sendReply()"
+            class="send-btn btn text-white y4c-color d-flex"
+          >
+            <span class="mx-3">Send</span>
+            <i class="bi bi-send-fill text-white"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide out window for Search Channel  -->
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="searchCanvas-item"
+  aria-labelledby="search-canvas"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="search-canvas">
+      Search in {{ activeRoom.serverName }} Channel
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <form class="d-flex" role="search">
+      <!-- <input name="searchText" [(ngModel)]="searchText" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+      <input
+        autocomplete="off"
+        (keyup)="applySearchFilter()"
+        name="searchText"
+        [(ngModel)]="searchText"
+        class="form-control me-2"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn y4c-color text-white" type="submit">Search</button>
+    </form>
+
+    <ng-container *ngFor="let i of filteredItems">
+      <hr />
+
+      <div class="reply-container mb-3">
+        <div class="replies">
+          <div class="d-flex align-items-start">
+            <img
+              [src]="i.ownerProfilePic"
+              alt="User Image"
+              class="user-image"
+            />
+            <div class="mx-3">
+              <h3 class="acct-name fw-bold">{{ i.ownerName }}</h3>
+              <p class="custom-time mb-1">
+                {{ i.createdAt | date : "medium" }}
+              </p>
+              <p
+                class="comment mb-3"
+                [innerHTML]="highlightText(i.topicDesc)"
+              ></p>
+            </div>
+          </div>
+        </div>
+        <a
+          (click)="viewReplies(i, $event)"
+          class="btn text-white btn-primary btn-sm"
+          data-bs-toggle="offcanvas"
+          href="#viewReplies-item"
+          role="button"
+          aria-controls="viewReplies-item"
+        >
+          <span class="mx-3">View Replies</span>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Slide out window for Channel Information  -->
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="channel-info"
+  aria-labelledby="channel-info-label"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="channel-info-label">Channel Information</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <div class="channel-title mb-3">
+      <label class="text-secondary fw-semibold">Channel Name</label>
+      <h5>
+        {{ activeRoom.serverName }}
+      </h5>
+    </div>
+
+    <div class="channel-description mb-5">
+      <label class="text-secondary fw-semibold">Description</label>
+      <h6 class="text-secondary-emphasis">
+        A town hall different from bala blu, blue blu bulaba. broom broom broom
+        brooooooooom. Bala blu blue blu bulaba. The farmers will make more
+        money. Your lunch will not be imported, cassava garri ewa and ehhh
+        ehhhhnn. The farmer will make money, the dinner would be cassava, eba,
+        ewa and everything.
+      </h6>
+    </div>
+
+    <div class="channel-members">
+      <div class="members-search mb-3">
+        <label class="text-secondary fw-semibold mb-1">Members</label>
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn y4c-color text-white" type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="members-list p-1 border-bottom">
+        <div class="member-item d-flex">
+          <img
+            src="assets/images/bongis.jpg"
+            alt="User Image"
+            class="user-image"
+          />
+
+          <h4
+            class="acct-name fw-bold"
+            style="align-self: center; margin-left: 10px"
+          >
+            John Doe
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

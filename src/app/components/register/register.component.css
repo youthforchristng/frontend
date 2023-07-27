@@ -1,0 +1,15 @@
+#myDateField {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#myDateField::-webkit-clear-button,
+#myDateField::-webkit-inner-spin-button,
+#myDateField::-webkit-calendar-picker-indicator {
+  display: none;
+}

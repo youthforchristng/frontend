@@ -1,0 +1,17 @@
+/* Apply custom styles to the dialog actions */
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+/* Style the "Yes" button */
+button.mat-dialog-close[mat-dialog-close] {
+  background-color: #007bff;
+  color: #fff;
+  margin-left: 8px;
+}
+
+/* Style the "No" button */
+button.mat-dialog-close {
+  background-color: #6c757d;
+  color: #fff;
+}

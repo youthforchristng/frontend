@@ -1,0 +1,61 @@
+<div class="modal offcanvas offcanvas-end fade" tabindex="-1" id="viewReplies-item"
+    aria-labelledby="viewReplies-canvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="search-canvas">View Replies <!-- to Topic --> </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="post d-flex align-items-start mb-3">
+            <img [src]="activeTopic.ownerProfilePic" alt="User Image" class="user-image">
+            <div class="mx-3">
+                <h3 class="acct-name fw-bold">
+                  <!-- John Doe -->
+                  {{ activeTopic.topicName }}
+                </h3>
+                <p class="comment  mb-3">
+                  {{ activeTopic.topicDesc }}
+                </p>
+
+                <!-- <div class="border-top bg-primary-subtle p-2 mb-3"><strong>25</strong> replies</div> -->
+            </div>
+        </div>
+
+
+        <ng-container *ngFor="let i of replies">
+
+          <div class="reply-container mb-3">
+              <div class="replies">
+                  <div class="d-flex align-items-start">
+                      <img [src]="i.profilePic" alt="User Image" class="user-image">
+                      <div class="mx-3">
+                          <h3 class="acct-name fw-bold">{{ i.user }}</h3>
+                          <p class="comment  mb-3">{{ i.text }}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </ng-container>
+
+        <hr>
+
+        <div class="page-message-box mb-5">
+            <div class="flex-column">
+                <textarea  rows="1" placeholder="Send a message" [(ngModel)]="reply"
+                    class="form-control mb-3"></textarea>
+                <!-- <textarea
+                #myInput (keydown)="onKeyUp($event, myInput.value)"  rows="1" placeholder="Send a message" [(ngModel)]="message"
+                    class="form-control mb-3"></textarea> -->
+
+                <button (click)="sendReply()" class="send-btn btn text-white y4c-color d-flex">
+                    <span class="mx-3">Send</span>
+                    <i class="bi bi-send-fill text-white"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

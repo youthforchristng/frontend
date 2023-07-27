@@ -1,0 +1,154 @@
+
+<nav id="sidebarMenu" class="collapse d-lg-block d-sm-none d-md-none sidebar collapse text-bg-dark p-3"
+style="width: 300px; position: fixed; top: 0; left: 0; height: 100vh;">
+
+<div class="header-logo" style="position: relative; height: 10%;">
+  <a routerLink="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <i class="fas fa-crown mx-3" style="color: #ffffff;"></i>
+    <span class="fs-4">Youths for Christ</span>
+  </a>
+  <hr>
+</div>
+
+<!-- <div class="header-links" style="position: relative; height: 80%; overflow-y: auto;">
+  <ng-container *ngIf="isLoadingRooms">
+    <sidebar-skeleton-loader></sidebar-skeleton-loader>
+  </ng-container>
+
+    <ul class="nav nav-pills flex-column mb-auto" *ngIf="!isLoadingRooms">
+      <li (click)="joinRoom(i)" class="nav-item mb-1 pointer" *ngFor="let i of rooms">
+          <a class="nav-link" [ngClass]="(activeRoom != 'undefined' && activeRoom?.serverName == i.serverName) ? 'active y4c-color' : 'text-white' " aria-current="page">
+              <i class="fas fa-comments mx-3"></i>
+              {{ i.serverName }}
+          </a>
+      </li>
+    </ul>
+</div> -->
+
+<div class="header-links" style="position: relative; height: 80%; overflow-y: auto;">
+  <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+          <a [routerLink]="'/admin/posts'" [routerLinkActive]="['active']" class="nav-link text-white" aria-current="page">
+              <i class="fas fa-comments mx-3"></i>
+              Posts
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="'/admin/users'" [routerLinkActive]="['active']" class="nav-link text-white">
+              <i class="fas fa-user-friends mx-3" style="color: #ffffff;"></i>
+              Users
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="'/admin/channels'" [routerLinkActive]="['active']" class="nav-link text-white">
+              <i class="fas fa-users mx-3" style="color: #ffffff;"></i>
+              Channels
+          </a>
+      </li>
+  </ul>
+</div>
+
+<hr>
+
+<div class="header-footer pe-3" style="position: relative; height: 10%;">
+    <div class="dropdown">
+        <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle pointer"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img [src]="profilePic" alt="" class="rounded-circle me-2" width="32" height="32">
+            <strong> {{ fullname }}</strong>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow pointer">
+
+          <!-- <ng-container *ngIf="role == 'admin'"> -->
+
+            <li><a class="dropdown-item pointer" [routerLink]="['/']">Switch to User Profile</a>
+            </li>
+            <!-- <li><a class="dropdown-item" href="#">Profile</a></li> -->
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+
+          <!-- </ng-container> -->
+
+            <li>
+              <a class="dropdown-item pointer" (click)="signout()">
+                Sign out
+                <i style="float: right !important" class="bi bi-box-arrow-left"></i>
+              </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<!-- Slide out window for Sidebar Menu  -->
+<!-- <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+  aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px; position: fixed;">
+  <div class="offcanvas-header">
+
+      <a routerLink="/" id="offcanvasDarkNavbarLabel"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none offcanvas-title">
+          <i class="fas fa-crown mx-3" style="color: #fff;"></i>
+          <span class="fs-4">Youths for Christ</span>
+      </a>
+
+      <hr>
+
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+
+      <div class="header-links"
+          style="position: relative; height: 80%; overflow-y: auto;">
+          <ng-container *ngIf="isLoadingRooms">
+            <sidebar-skeleton-loader></sidebar-skeleton-loader>
+          </ng-container>
+
+          <ul class="nav nav-pills flex-column mb-auto" *ngIf="!isLoadingRooms">
+            <ng-container *ngFor="let i of rooms">
+              <li (click)="joinRoom(i)" class="nav-item mb-1 pointer">
+                <a class="nav-link" [ngClass]="(activeRoom != 'undefined' && activeRoom?.serverName == i.serverName) ? 'active y4c-color' : 'text-white' " aria-current="page">
+                    <i class="fas fa-comments mx-3"></i>
+                    {{ i.serverName }}
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+      </div>
+
+      <hr>
+
+      <div class="header-footer pe-3" style="position: relative; height: 10%;">
+          <div class="dropdown">
+              <a href="#"
+                  class="d-flex align-items-center text-white text-decoration-none dropdown-toggle pointer"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img [src]="profilePic" alt="" class="rounded-circle me-2"
+                      width="32" height="32">
+                  <strong> {{ fullname }} </strong>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark text-small shadow pointer">
+                  <ng-container *ngIf="role == 'admin'">
+
+                    <li><a class="dropdown-item pointer" [routerLink]="['/admin']">Switch to Admin Profile</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                  </ng-container>
+                  <li>
+                    <a class="dropdown-item pointer" (click)="signout()">
+                      Sign out
+                      <i style="float: right !important" class="bi bi-box-arrow-left"></i>
+                    </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div> -->

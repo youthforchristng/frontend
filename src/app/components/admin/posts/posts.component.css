@@ -1,0 +1,14 @@
+input::placeholder {
+  font-size: 10px; /* Adjust the font size to your preference */
+}
+
+.image-box {
+  display: inline-block;
+  border: 2px solid #ccc; /* Change the border style and color as per your preference */
+  padding: 10px; /* Adjust the padding to create some spacing around the image */
+}
+
+.user_image {
+  width: 300px; /* Adjust the width to make the image bigger or smaller */
+  height: auto; /* This ensures the aspect ratio of the image remains intact */
+}

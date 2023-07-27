@@ -1,0 +1,64 @@
+<div class="d-flex align-items-center justify-contents-center">
+  <div class="left-wrapper col-lg-6 col-md-12 col-sm-12 p-5 login-bground">
+
+    <div class="logo mb-3">
+      <img src="assets/images/yfc.png" alt="" class="form-logo">
+    </div>
+
+    <div class="text-primary-emphasis col-12 mb-5">
+      <h4 class="display-6 mb-3"><strong>Recover your Password</strong></h4>
+      <h6>Enter the correct email in the field below</h6>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <form [formGroup]="generate_otp_form" (ngSubmit)="generate_otp()">
+
+        <div class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-5">
+          <label class="form-label fw-semibold">Email</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+              <i class="bi bi-envelope-fill"></i>
+            </span>
+            <input type="email" autocomplete="password" class="form-control" formControlName="email" placeholder="Enter your email">
+
+          </div>
+
+          <div style="color: red !important;" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <div *ngIf="email?.errors?.['required']">Email is required.</div>
+            <div *ngIf="email?.errors?.['pattern']">Invalid email format or missing domain extension.</div>
+          </div>
+
+        </div>
+
+
+
+        <div class="d-grid col-lg-6 col-md-6 col-sm-12 mx-auto mb-3 text-center">
+
+          <button
+            class="btn btn-lg text-white y4c-color mb-3"
+            [disabled]="generate_otp_form.invalid || isLoading"
+            type="submit">
+              <span *ngIf="!isLoading">
+                Generate OTP
+              </span>
+              <span *ngIf="isLoading">
+                Please Wait ...
+              </span>
+          </button>
+
+
+          <!-- <label class="form-label">
+            Don't have an account?
+          </label> -->
+          <label class="form-label">
+            <a [routerLink]="['/login']">Back to login</a>
+          </label>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <welcome-image></welcome-image>
+</div>

@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("./assets/css/style.css");
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.centered-text {
+  text-align: center !important;
+}
+
+.custom-time{
+  font-size: 12px !important;
+  color: grey !important;
+  font-weight: 200 !important;
+}
+
+
+/* Day theme styles */
+/* body {
+  background-color: #ffffff;
+  color: #000000;
+} */
+
+/* Night theme styles */
+/* body.night-mode {
+  background-color: #333333;
+  color: #ffffff;
+} */
