@@ -88,6 +88,16 @@ export class ApiService {
     );
   };
 
+  user_count_per_server(data: any) {
+    let url = this.baseurl + "/server/user-count";
+    return this._http.post(url, data, { headers: this.header()})
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
   create_a_server(data: any) {
     let url = this.baseurl + "/server/create-server";
     return this._http.post(url, data, { headers: this.header()})
@@ -110,6 +120,8 @@ export class ApiService {
 
   join_server(data: any) {
     let url = this.baseurl + "/server/join-server";
+    console.log(url);
+
     return this._http.post(url, data, { headers: this.header()})
     .pipe(
       map(response => response),
@@ -120,6 +132,8 @@ export class ApiService {
 
   leave_server(data: any) {
     let url = this.baseurl + "/server/leave-server";
+    console.log(url);
+
     return this._http.post(url, data, { headers: this.header()})
     .pipe(
       map(response => response),

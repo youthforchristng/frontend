@@ -185,8 +185,14 @@
 
                                     <a (click)="view(post)" class="btn text-white btn-primary btn-sm"
                                       data-bs-toggle="offcanvas" href="#viewReplies-item"
+                                      mat-raised-button
+                                      matTooltip="View"
+                                      matTooltipPosition="above"
                                       role="button" aria-controls="viewReplies-item">
-                                      <span class="mx-3">View</span>
+                                      <span class="mx-3">
+                                        <!-- View -->
+                                        <i class="bi bi-eye"></i>
+                                      </span>
                                     </a>
 
                                   </div>
@@ -212,6 +218,18 @@
                         </a>
                       </div>
 
+
+                      <div *ngIf="filteredPostList.length > 0" class=" mt-4 pt-4">
+                        <a>
+                          <pagination-controls class="my-pagination d-flex justify-content-between align-items-center " (pageChange)="filteredPostListPage = $event"></pagination-controls>
+                        </a>
+                      </div>
+
+                      <div *ngIf="filteredPostList.length < 1" class="d-flex justify-content-between align-items-center mt-4 pt-4">
+                        <a>
+                          <pagination-controls class="my-pagination" (pageChange)="postListPage = $event"></pagination-controls>
+                        </a>
+                      </div>
 
                     </div>
                 </div>

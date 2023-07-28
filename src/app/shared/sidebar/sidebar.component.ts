@@ -74,7 +74,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     const joinServerObserver = {
       next: (response: any) => {
-        // console.log(response);
+        console.log(response);
       },
       error: (error: any) => {
       },

@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div class="ms-3">
+          <!-- <div class="ms-3">
             <div class="dropdown ">
               <button
                 class="btn btn-primary dropdown-toggle"
@@ -88,7 +88,7 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -355,6 +355,20 @@
                     ></pagination-controls>
                   </a>
                 </div>
+
+
+                <div *ngIf="filteredUserList.length > 0" class=" mt-4 pt-4">
+                  <a>
+                    <pagination-controls class="my-pagination d-flex justify-content-between align-items-center " (pageChange)="filteredUserListPage = $event"></pagination-controls>
+                  </a>
+                </div>
+
+                <div *ngIf="filteredUserList.length < 1" class="d-flex justify-content-between align-items-center mt-4 pt-4">
+                  <a>
+                    <pagination-controls class="my-pagination" (pageChange)="userListPage = $event"></pagination-controls>
+                  </a>
+                </div>
+
               </div>
             </div>
           </div>

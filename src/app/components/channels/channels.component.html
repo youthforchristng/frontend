@@ -41,7 +41,7 @@
           <i class="bi bi-search"></i>
         </a>
 
-        <!-- <div class="btn-group">
+        <div class="btn-group">
           <button
             type="button"
             class="btn btn-dark rounded"
@@ -53,11 +53,11 @@
 
           <ul class="dropdown-menu">
             <li>
-              <button class="dropdown-item" type="button">Leave Channel</button>
+              <button (click)="leaveServer()" class="dropdown-item" type="button">Leave Channel</button>
             </li>
-            <li><button class="dropdown-item" type="button">Report</button></li>
+            <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
           </ul>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -198,24 +198,14 @@
             {{ activeTopic.createdAt | date : "medium" }}
           </p>
           <p class="comment mb-1">
-            <!-- {{ activeTopic.topicDesc }} -->
-
-            A town hall different from bala blu, blue blu bulaba. broom broom
-            broom brooooooooom. Bala blu blue blu bulaba. The farmers will make
-            more money. Your lunch will not be imported, cassava garri ewa and
-            ehhh ehhhhnn. The farmer will make money, the dinner would be
-            cassava, eba, ewa and everything. A town hall different from bala
-            blu, blue blu bulaba. broom broom broom brooooooooom. Bala blu blue
-            blu bulaba. The farmers will make more money. Your lunch will not be
-            imported, cassava garri ewa and ehhh ehhhhnn. The farmer will make
-            money, the dinner would be cassava, eba, ewa and everything.
+            {{ activeTopic.topicDesc }}
           </p>
 
           <div
             *ngIf="!isLoadingReplies"
             class="border-top bg-primary-subtle p-2 mb-3"
           >
-            <strong>{{ replyCount }}</strong> replies
+            <strong>{{ replyCount }}</strong> {{ replyCount !==  1 ?  'replies' : 'reply'}}
           </div>
         </div>
       </div>

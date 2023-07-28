@@ -102,7 +102,7 @@ export class AdminChannelsComponent implements OnInit{
     return this.newChannelForm.get('serverDescription');
   }
 
-  public createNewServer(event: any){
+  createNewServer(event: any){
     event.preventDefault();
     event.stopPropagation();
     let data: any = {
@@ -210,6 +210,56 @@ export class AdminChannelsComponent implements OnInit{
 
   };
 
+
+  getUserCount(){
+    // console.log(this.updateServer);
+
+    let data = {
+      serverId: this.updateServer.serverId
+    };
+
+    // console.log(data);
+
+
+    // this.loaderService.showLoader();
+    // this.ngxLoader.start();
+
+    this.isLoadingUserCount = true;
+
+    this._snackbar.closeAllSnackBars()
+
+    const user_count_observer = {
+      next: (response: any) => {
+        // console.log(response);
+
+        this.isLoadingUserCount = false;
+
+        // this.loaderService.hideLoader()
+        // this.ngxLoader.stop();
+
+        if (response.statusCode === "00") {
+          this.userCount = response.data;
+
+          // console.log(this.postList)
+        }
+        else if(response.statusCode === "96") {
+          this._snackbar.showSnackbar(response.statusMessage, 'Close');
+        }
+        else {
+          this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+        };
+
+      },
+      error: (error: any) => {
+        this.isLoadingUserCount = false;
+        this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+      }
+    };
+
+    this.userCountSubscription = this._api.user_count_per_server(data).subscribe(user_count_observer);
+
+  };
+
   deleteServer(event: any, i: any) {
     event.preventDefault();
     event.stopPropagation();
@@ -227,15 +277,15 @@ export class AdminChannelsComponent implements OnInit{
 
     // console.log(data);
 
-    this.loaderService.showLoader();
-    this._storage.showBackgroundLoader();
+    // this.loaderService.showLoader();
+    // this._storage.showBackgroundLoader();
 
     const deleteServerObserver = {
       next: (response: any) => {
         // console.log(response);
 
-        this.loaderService.hideLoader();
-        this._storage.hideBackgroundLoader();
+        // this.loaderService.hideLoader();
+        // this._storage.hideBackgroundLoader();
         if (response.statusCode === "00") {
           this._alert.toast_top_end_success('Deleted Successfully')
 
@@ -256,8 +306,8 @@ export class AdminChannelsComponent implements OnInit{
 
       },
       error: (error: any) => {
-        this.loaderService.hideLoader();
-        this._storage.hideBackgroundLoader();
+        // this.loaderService.hideLoader();
+        // this._storage.hideBackgroundLoader();
         this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
       }
     };
@@ -286,6 +336,8 @@ export class AdminChannelsComponent implements OnInit{
     this.updateServer.serverId = i._id;
     this.updateServer.serverName = i.serverName;
     this.updateServer.description = i.description;
+
+    this.getUserCount()
   }
 
 
@@ -367,10 +419,13 @@ export class AdminChannelsComponent implements OnInit{
   private updateServerSubscription!: Subscription;
   private deleteServerSubscription!: Subscription;
 
+  private userCountSubscription!: Subscription;
+
 
   searchText: any = '';
   // closeOffCanvas = '';
 
+  userCount: any = '';
   serverToDelete: any = {};
 
   serverList: any = [];
@@ -385,6 +440,10 @@ export class AdminChannelsComponent implements OnInit{
   isLoadingCreateServer: Boolean = false;
   isLoadingUpdateServer: Boolean = false;
   isLoadingServerList: Boolean = false;
+  isLoadingUserCount: Boolean = false;
+
   noServerList: Boolean = false;
+
+  imageSpinner = this._storage.imageSpinner;
 
 }

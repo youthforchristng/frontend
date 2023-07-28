@@ -81,14 +81,14 @@
                       <table class="table table-hover mb-5" style="word-wrap: normal; height: auto;" >
                         <thead class="mb-1">
                           <tr>
-                            <th class="centered-text">S/N</th>
-                            <th class="centered-text">Channel Name</th>
-                            <th class="centered-text">Date Created</th>
-                            <th class="centered-text">Action</th>
+                            <th>S/N</th>
+                            <th>Channel Name</th>
+                            <th>Date Created</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
 
-                        <tbody class="centered-text">
+                        <tbody>
                           <ng-container id="filteredTable" *ngIf="filteredServerList.length > 0 && searchText.length > 0">
                             <tr *ngFor="let server of filteredServerList | paginate: { itemsPerPage: 20, currentPage: filteredServerListPage,
                               totalItems:filteredServerListLength}; index as i ">
@@ -134,7 +134,7 @@
                                     {{ server.createdAt | date:'medium' }}
                                   </div>
                                 </td>
-                                <td class=" centered-text">
+                                <td >
                                   <div class="d-flex">
                                     <button (click)="update_a_server(server)" mat-raised-button matTooltip="Update" matTooltipPosition="above" class="btn text-white btn-primary btn-sm me-3 centered-text"
                                       data-bs-toggle="offcanvas" href="#viewReplies-item"
@@ -162,9 +162,9 @@
                       </table>
 
 
-                      <div *ngIf="filteredServerList.length > 0" class="d-flex justify-content-between align-items-center mt-4 pt-4">
+                      <div *ngIf="filteredServerList.length > 0" class=" mt-4 pt-4">
                         <a>
-                          <pagination-controls class="my-pagination" (pageChange)="filteredServerListPage = $event"></pagination-controls>
+                          <pagination-controls class="my-pagination d-flex justify-content-between align-items-center " (pageChange)="filteredServerListPage = $event"></pagination-controls>
                         </a>
                       </div>
 
@@ -176,6 +176,8 @@
 
                   </div>
                 </div>
+
+
               </div>
             </div>
           </div>
@@ -270,7 +272,7 @@
                     <span class="input-group-text">
                         <i class="bi bi-house-fill"></i>
                     </span>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control" maxlength="12"
                         placeholder="Enter Channel Name" [(ngModel)]="updateServer.serverName" name="serverName"/>
                 </div>
             </div>
@@ -282,6 +284,21 @@
                     <textarea rows="3" [(ngModel)]="updateServer.description" name="serverDescription" placeholder="Enter Channel Description"
                         class="form-control"></textarea>
                 </div>
+            </div>
+
+
+            <div class="channel-title mb-3">
+              <label class="text-dark-emphasis fw-medium">Number of users</label>
+
+              <ng-container *ngIf="!isLoadingUserCount">
+                <h6 class="fw-semibold">{{userCount}}</h6>
+              </ng-container>
+
+                <ng-container *ngIf="isLoadingUserCount">
+                  <img [src]="imageSpinner" alt="Please Wait ..." style="margin: 10px !important;" class="rounded-circle"
+                    width="15" height="15">
+                </ng-container>
+
             </div>
 
         </div>

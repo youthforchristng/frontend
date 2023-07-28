@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Component, ElementRef, HostListener, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
@@ -38,7 +39,8 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
     private _router: Router,
     private _storage: StorageService,
     private _api: ApiService,
-    private _snackbar: SnackbarService ) {}
+    private _snackbar: SnackbarService,
+    private ngxLoader: NgxUiLoaderService ) {}
 
     // Add this getter method to access the nightModeService in the template
   // get nightModeService(): NightModeService {
@@ -324,43 +326,46 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
     return name.replace(regex, match => `<span class="highlight">${match}</span>`);
   };
 
-  // leaveServer(): void {
+  leaveServer(): void {
 
-  //   let data = {
-  //     serverId: this.activeRoom._id,
-  //     userId: this.userId
-  //   };
+    let data = {
+      serverId: this.activeRoom._id,
+      userId: this.userId
+    };
 
-  //   console.log(data);
+    // console.log(data);
 
-  //   this.showBackground();
+    // this.showBackground();
+    this.ngxLoader.startBackground();
 
-  //   setTimeout(()=> this.hideBackground(), 5000)
+    // setTimeout(()=> this.hideBackground(), 5000)
 
-  //   const leaveServerObserver = {
-  //     next: (response: any) => {
-  //       console.log(response);
+    const leaveServerObserver = {
+      next: (response: any) => {
+        // console.log(response);
 
-  //       this.hideBackground();
+        // this.hideBackground();
+        this.ngxLoader.stopBackground();
 
-  //       if (response.statusCode == '00') {
-  //         this._snackbar.showSnackbar('Successful', 'Close');
-  //         this._router.navigate(['/']);
-  //       } else if (response.statusCode == '96') {
-  //         this._snackbar.showSnackbar(response.statusMessage, 'Close');
-  //       } else {
-  //         this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
-  //       }
-  //     },
-  //     error: (error: any) => {
-  //       this.hideBackground();
-  //       this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
-  //     },
-  //   };
+        if (response.statusCode == '00') {
+          // this._snackbar.showSnackbar('Successful', 'Close');
+          this._router.navigate(['/']);
+        } else if (response.statusCode == '96') {
+          this._snackbar.showSnackbar(response.statusMessage, 'Close');
+        } else {
+          this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+        }
+      },
+      error: (error: any) => {
+        this.ngxLoader.stopBackground();
+        // this.hideBackground();
+        this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+      },
+    };
 
-  //   this.leaveServerSubscription = this._api.leave_server(data).subscribe(leaveServerObserver);
+    this.leaveServerSubscription = this._api.leave_server(data).subscribe(leaveServerObserver);
 
-  // };
+  };
 
 
   topics: any = [];

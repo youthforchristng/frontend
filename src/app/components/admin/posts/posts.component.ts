@@ -108,8 +108,8 @@ export class AdminPostsComponent {
       status: status
     };
 
-    this.loaderService.showLoader();
-    this.ngxLoader.start();
+    // this.loaderService.showLoader();
+    // this.ngxLoader.start();
 
     this.noPostList = false;
     this.isLoadingPostList = true;
@@ -122,8 +122,8 @@ export class AdminPostsComponent {
 
         this.isLoadingPostList = false;
 
-        this.loaderService.hideLoader()
-        this.ngxLoader.stop();
+        // this.loaderService.hideLoader()
+        // this.ngxLoader.stop();
 
         if (response.statusCode === "00") {
           this.postList = response.data;

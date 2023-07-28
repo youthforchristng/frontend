@@ -138,46 +138,40 @@
 
   <div class="offcanvas-body" style="position: relative; height: 85%; overflow-y: auto">
     <div class="header-links">
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a
-            href="marriages.html"
-            class="nav-link active y4c-color"
-            aria-current="page"
-          >
-            <i class="fas fa-comments me-3"></i>
-            Marriages <span class="badge bg-primary mx-3">4</span>
-          </a>
-        </li>
 
-        <li>
-          <a href="business.html" class="nav-link text-white">
-            <i class="fas fa-comments me-3"></i>
-            Business
-          </a>
-        </li>
-
-        <li>
-          <a href="career.html" class="nav-link text-white">
-            <i class="fas fa-comments me-3"></i>
-            Career
-          </a>
-        </li>
-
-        <li>
-          <a href="jobs.html" class="nav-link text-white">
-            <i class="fas fa-comments me-3"></i>
-            Jobs
-          </a>
-        </li>
-
-        <li>
-          <a href="education.html" class="nav-link text-white">
-            <i class="fas fa-comments me-3"></i>
-            Education
-          </a>
-        </li>
-      </ul>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a
+          [routerLink]="'/admin/posts'"
+          [routerLinkActive]="['active']"
+          class="nav-link text-white"
+          aria-current="page"
+        >
+          <i class="fas fa-comments mx-3"></i>
+          Posts
+        </a>
+      </li>
+      <li>
+        <a
+          [routerLink]="'/admin/users'"
+          [routerLinkActive]="['active']"
+          class="nav-link text-white"
+        >
+          <i class="fas fa-user-friends mx-3" style="color: #ffffff"></i>
+          Users
+        </a>
+      </li>
+      <li>
+        <a
+          [routerLink]="'/admin/channels'"
+          [routerLinkActive]="['active']"
+          class="nav-link text-white"
+        >
+          <i class="fas fa-users mx-3" style="color: #ffffff"></i>
+          Channels
+        </a>
+      </li>
+    </ul>
     </div>
   </div>
 
@@ -203,11 +197,11 @@
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow pointer">
         <ng-container *ngIf="role == 'admin'">
           <li>
-            <a class="dropdown-item pointer" [routerLink]="['/admin']"
-              >Switch to Admin Profile</a
+            <a class="dropdown-item pointer" [routerLink]="['/']"
+              >Switch to User Profile</a
             >
           </li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <!-- <li><a class="dropdown-item" href="#">Profile</a></li> -->
           <li>
             <hr class="dropdown-divider" />
           </li>

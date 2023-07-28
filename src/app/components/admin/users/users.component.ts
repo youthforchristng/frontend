@@ -153,16 +153,16 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
     // console.log(data);
     this._snackbar.closeAllSnackBars();
 
-    this.loaderService.showLoader()
-    this._storage.showBackgroundLoader();
+    // this.loaderService.showLoader()
+    // this._storage.showBackgroundLoader();
 
     const changeUserStatusObserver = {
       next: (response: any) => {
 
         // console.log(response);
 
-        this.loaderService.hideLoader()
-        this._storage.hideBackgroundLoader();
+        // this.loaderService.hideLoader()
+        // this._storage.hideBackgroundLoader();
         if (response.statusCode === "00") {
 
           this._alert.toast_top_end_success('Operation Successful');
@@ -195,7 +195,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 
       },
       error: (error: any) => {
-        this._storage.hideBackgroundLoader();
+        // this._storage.hideBackgroundLoader();
         this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
       }
     };
