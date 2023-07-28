@@ -5,14 +5,21 @@
   <div class="page-content bg-light-subtle p-3">
       <section class="right-panel">
 
-          <div class="row mb-5">
-
-              <div class="col-lg-12 col-md-6 col-sm-12 d-flex">
-                  <div class="col-lg-8 col-md-12 col-sm-12">
-                      <h1 class="h3 fw-bold">Channels</h1>
-                  </div>
-              </div>
+        <div class="mb-5">
+          <div class="d-flex align-items-center">
+            <button
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasDarkNavbar"
+              aria-controls="offcanvasDarkNavbar"
+              aria-label="Toggle navigation"
+              class="navbar-toggler"
+            >
+              <i class="bi bi-list bi-2x me-3" id="side-btn"></i>
+            </button>
+            <label class="fs-3 fw-bold">Channels</label>
           </div>
+        </div>
 
 
           <!-- Beginning of Table Section  -->
@@ -20,7 +27,7 @@
 
           <div class="row mb-5">
             <div class="d-flex mb-3">
-              <div class="form-group me-5">
+              <div class="form-group me-3">
                 <div class="input-group">
                   <input type="text" class="form-control search" placeholder="Enter Channel Name"
                   name="searchText" [(ngModel)]="searchText" autocomplete="off" (keyup)="applySearchFilter()"
@@ -33,10 +40,11 @@
 
               <div class="float-end">
                 <!-- <button mat-raised-button matTooltip="New Channel" matTooltipPosition="above" class="btn text-white btn-primary me-3" (click)="openOffCanvas()"> -->
-                <button mat-raised-button matTooltip="New Channel" matTooltipPosition="above" class="btn text-white btn-primary me-3"
+                <button mat-raised-button matTooltip="New Channel" matTooltipPosition="above" class="btn text-white btn-primary d-flex"
                 data-bs-toggle="offcanvas" href="#create-channel-item"
                 role="button" aria-controls="viewUserDetails-item">
-                  <i class="bi bi-plus centered-text"></i>
+                  <i class="bi bi-plus centered-text me-1"></i>
+                  <label for="">Add</label>
                 </button>
               </div>
             </div>
@@ -80,7 +88,7 @@
                           </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody class="centered-text">
                           <ng-container id="filteredTable" *ngIf="filteredServerList.length > 0 && searchText.length > 0">
                             <tr *ngFor="let server of filteredServerList | paginate: { itemsPerPage: 20, currentPage: filteredServerListPage,
                               totalItems:filteredServerListLength}; index as i ">
@@ -126,7 +134,7 @@
                                     {{ server.createdAt | date:'medium' }}
                                   </div>
                                 </td>
-                                <td>
+                                <td class=" centered-text">
                                   <div class="d-flex">
                                     <button (click)="update_a_server(server)" mat-raised-button matTooltip="Update" matTooltipPosition="above" class="btn text-white btn-primary btn-sm me-3 centered-text"
                                       data-bs-toggle="offcanvas" href="#viewReplies-item"
@@ -298,7 +306,7 @@
 </div>
 
 <!-- Deactivate Modal  -->
-<div class="modal fade" id="deactivateModal" tabindex="-1"
+<!-- <div class="modal fade" id="deactivateModal" tabindex="-1"
     aria-labelledby="deactivateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -321,7 +329,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Delete Modal  -->
 <div class="modal fade" id="deleteModal" tabindex="-1"
@@ -343,7 +351,7 @@
                     data-bs-dismiss="modal">
                     Do Not Delete
                   </button>
-                <button (click)="confirmDeleteServer($event)" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                <button (click)="confirmDeleteServer($event)" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                   Yes, Delete Channel
                 </button>
             </div>

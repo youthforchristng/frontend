@@ -1,68 +1,99 @@
 <div class="d-flex">
-
   <admin-sidebar></admin-sidebar>
 
   <div class="page-content bg-light-subtle p-3">
     <section class="right-panel">
-
-      <div class="row mb-3">
-        <div class="col-lg-12 col-md-6 col-sm-12 d-flex">
-          <div class="col-lg-8 col-md-12 col-sm-12">
-            <h1 class="h3 fw-bold">Users</h1>
-          </div>
+      <div class="mb-5">
+        <div class="d-flex align-items-center">
+          <button
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasDarkNavbar"
+            aria-controls="offcanvasDarkNavbar"
+            aria-label="Toggle navigation"
+            class="navbar-toggler"
+          >
+            <i class="bi bi-list bi-2x me-3" id="side-btn"></i>
+          </button>
+          <label class="fs-3 fw-bold">Users</label>
         </div>
       </div>
 
-      <div class="row mb-5">
-        <div class="col-lg-6 col-md-12 col-sm-12 d-flex">
 
-          <div class="col-lg-4 col-md-3 col-sm-12">
-            <label class="mb-2">&nbsp;</label>
+
+
+      <div class="mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 d-flex">
+          <div class="me-3">
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                <ng-container *ngIf="!isLoadingUserList">
-                  Filter by Status
-                </ng-container>
-
-                  <ng-container *ngIf="isLoadingUserList">
-                    <img [src]="imageSpinner" alt="Please Wait ..." style="margin: 10px !important;" class="rounded-circle"
-                      width="15" height="15">
-                  </ng-container>
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Filter by Status
               </button>
 
               <ul class="dropdown-menu pointer">
-                <li><a class="dropdown-item" (click)="fetch_users_by_status('ACTIVE')">Active Users</a></li>
-                <li><a class="dropdown-item" (click)="fetch_users_by_status('BLACKLISTED')">Blacklist Users</a></li>
-                <li><a class="dropdown-item" (click)="getAllUsers()">All Users</a></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="fetch_users_by_status('ACTIVE')"
+                    >Active Users</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="fetch_users_by_status('BLACKLISTED')"
+                    >Blacklist Users</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="getAllUsers()">All Users</a>
+                </li>
               </ul>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-3 col-sm-12">
-            <label class="mb-2">&nbsp;</label>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                <ng-container *ngIf="!isLoadingUserList">
-                  Filter by Status
-                </ng-container>
-
-                  <ng-container *ngIf="isLoadingUserList">
-                    <img [src]="imageSpinner" alt="Please Wait ..." style="margin: 10px !important;" class="rounded-circle"
-                      width="15" height="15">
-                  </ng-container>
+          <div class="ms-3">
+            <div class="dropdown ">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Filter by Status
               </button>
 
               <ul class="dropdown-menu pointer">
-                <li><a class="dropdown-item" (click)="fetch_users_by_status('ACTIVE')">Active Users</a></li>
-                <li><a class="dropdown-item" (click)="fetch_users_by_status('BLACKLISTED')">Blacklist Users</a></li>
-                <li><a class="dropdown-item" (click)="getAllUsers()">All Users</a></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="fetch_users_by_status('ACTIVE')"
+                    >Active Users</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="fetch_users_by_status('BLACKLISTED')"
+                    >Blacklist Users</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="getAllUsers()">All Users</a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
+
+
+
 
       <!-- Beginning of Table Section  -->
 
@@ -73,8 +104,17 @@
           <div class="input-group">
             <!-- <input type="text" class="form-control search" placeholder="Search Users"
             aria-label="Username" aria-describedby="basic-addon1" id="search" type="search"> -->
-            <input type="text" class="form-control search" placeholder="Search By Full Name"
-              aria-label="Username" aria-describedby="basic-addon1" name="searchText" [(ngModel)]="searchText" autocomplete="password" (keyup)="applySearchFilter()">
+            <input
+              type="text"
+              class="form-control search"
+              placeholder="Search By Full Name"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              name="searchText"
+              [(ngModel)]="searchText"
+              autocomplete="password"
+              (keyup)="applySearchFilter()"
+            />
             <span class="input-group-text">
               <i class="bi bi-search"></i>
             </span>
@@ -82,174 +122,268 @@
         </form>
       </div>
 
-
       <div class="row mb-5">
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="card border-secondary-subtle mb-3">
             <div class="card-body">
-
-
-              <div *ngIf="noUserList"
+              <div
+                *ngIf="noUserList"
                 class="no-data-text bg-light-grey"
-                style="text-align: center;
-                vertical-align: middle;
-                padding-top: 5%;
-                padding-bottom: 5%;
-                font-weight: bolder;"
-                >
+                style="
+                  text-align: center;
+                  vertical-align: middle;
+                  padding-top: 5%;
+                  padding-bottom: 5%;
+                  font-weight: bolder;
+                "
+              >
                 No Data
               </div>
 
-              <div *ngIf="isLoadingUserList"
+              <div
+                *ngIf="isLoadingUserList"
                 class="no-data-text bg-light-grey"
-                style="text-align: center;
-                vertical-align: middle;
-                padding-top: 5%;
-                padding-bottom: 5%;
-                font-weight: bolder;"
-                >
+                style="
+                  text-align: center;
+                  vertical-align: middle;
+                  padding-top: 5%;
+                  padding-bottom: 5%;
+                  font-weight: bolder;
+                "
+              >
                 <table-skeleton-loader></table-skeleton-loader>
               </div>
 
+              <div
+                *ngIf="!isLoadingUserList && !noUserList"
+                class="table-responsive border-primary mb-5"
+              >
+                <table
+                  class="table table-hover mb-5"
+                  style="word-wrap: normal; height: auto"
+                >
+                  <thead>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Full Name</th>
+                      <th>Email Address</th>
+                      <th>Phone Number</th>
+                      <th>Date Joined</th>
+                      <!-- <th>Channels Active</th> -->
+                      <th>Action</th>
+                    </tr>
+                  </thead>
 
-                <div *ngIf="!isLoadingUserList && !noUserList" class="table-responsive border-primary mb-5">
-                  <table class="table  table-hover mb-5" style="word-wrap: normal; height: auto;">
-                    <thead>
-                        <tr>
-                        <th>S/N</th>
-                        <th>Full Name</th>
-                        <th>Email Address</th>
-                        <th>Phone Number</th>
-                        <th>Date Joined</th>
-                        <!-- <th>Channels Active</th> -->
-                        <th>Action</th>
+                  <tbody>
+                    <ng-container
+                      id="filteredTable"
+                      *ngIf="filteredUserList.length > 0"
+                    >
+                      <tr
+                        *ngFor="
+                          let user of filteredUserList
+                            | paginate
+                              : {
+                                  itemsPerPage: 20,
+                                  currentPage: filteredUserListPage,
+                                  totalItems: filteredUserListLength
+                                };
+                          index as i
+                        "
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          {{ user.name }}
+                        </td>
+                        <td>
+                          {{ user.email }}
+                        </td>
+                        <td>
+                          {{ user.phoneNumber }}
+                        </td>
+                        <td>
+                          <div class="flex-column">
+                            {{ user.createdAt | date : "medium" }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex">
+                            <button
+                              (click)="viewUser(user)"
+                              class="btn text-white btn-primary btn-sm me-3"
+                              mat-raised-button
+                              matTooltip="View"
+                              matTooltipPosition="above"
+                              data-bs-toggle="offcanvas"
+                              href="#viewUserDetails-item"
+                              role="button"
+                              aria-controls="viewUserDetails-item"
+                            >
+                              <i class="bi bi-eye"></i>
+                              <!-- <span class="">View</span> -->
+                            </button>
+
+                            <button
+                              (click)="initiateChangeUserStatus($event, user)"
+                              class="btn text-white btn-sm"
+                              [ngClass]="
+                                user.status == 'ACTIVE'
+                                  ? 'btn-danger'
+                                  : 'btn-success'
+                              "
+                              mat-raised-button
+                              matTooltip="Change User's Status"
+                              matTooltipPosition="above"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              role="button"
+                              aria-controls="viewReplies-item"
+                            >
+                              <i
+                                class="bi"
+                                [ngClass]="
+                                  user.status == 'ACTIVE'
+                                    ? 'bi-slash-circle'
+                                    : ' bi-circle'
+                                "
+                              ></i>
+                            </button>
+                          </div>
+                        </td>
                       </tr>
-                    </thead>
+                    </ng-container>
 
-                    <tbody>
+                    <ng-container
+                      id="serverTable"
+                      *ngIf="filteredUserList.length < 1"
+                    >
+                      <tr
+                        *ngFor="
+                          let user of userList
+                            | paginate
+                              : {
+                                  itemsPerPage: 20,
+                                  currentPage: userListPage,
+                                  totalItems: userListLength
+                                };
+                          index as i
+                        "
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          {{ user.name }}
+                        </td>
+                        <td>
+                          {{ user.email }}
+                        </td>
+                        <td>
+                          {{ user.phoneNumber }}
+                        </td>
+                        <td>
+                          <div class="flex-column">
+                            {{ user.createdAt | date : "medium" }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex">
+                            <button
+                              (click)="viewUser(user)"
+                              class="btn text-white btn-primary btn-sm me-3"
+                              mat-raised-button
+                              matTooltip="View"
+                              matTooltipPosition="above"
+                              data-bs-toggle="offcanvas"
+                              href="#viewUserDetails-item"
+                              role="button"
+                              aria-controls="viewUserDetails-item"
+                            >
+                              <i class="bi bi-eye"></i>
+                            </button>
 
-                      <ng-container id="filteredTable" *ngIf="filteredUserList.length > 0">
-                        <tr *ngFor="let user of filteredUserList | paginate: { itemsPerPage: 20, currentPage: filteredUserListPage,
-                          totalItems:filteredUserListLength}; index as i ">
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                              {{ user.name }}
-                            </td>
-                            <td>
-                              {{ user.email }}
-                            </td>
-                            <td>
-                              {{ user.phoneNumber }}
-                            </td>
-                            <td>
-                              <div class="flex-column">
-                                {{ user.createdAt | date: 'medium' }}
-                              </div>
-                            </td>
-                            <td>
+                            <button
+                              (click)="initiateChangeUserStatus($event, user)"
+                              class="btn text-white btn-sm"
+                              [ngClass]="
+                                user.status == 'ACTIVE'
+                                  ? 'btn-danger'
+                                  : 'btn-success'
+                              "
+                              mat-raised-button
+                              matTooltip="Change User's Status"
+                              matTooltipPosition="above"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              role="button"
+                              aria-controls="viewReplies-item"
+                            >
+                              <i
+                                class="bi"
+                                [ngClass]="
+                                  user.status == 'ACTIVE'
+                                    ? 'bi-slash-circle'
+                                    : ' bi-circle'
+                                "
+                              ></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
 
-                              <div class="d-flex">
-                                <button (click)="viewUser(user)" class="btn text-white btn-primary btn-sm me-3"
-                                  mat-raised-button matTooltip="View" matTooltipPosition="above"
-                                  data-bs-toggle="offcanvas" href="#viewUserDetails-item"
-                                  role="button" aria-controls="viewUserDetails-item">
-                                  <i class="bi bi-eye"></i>
-                                  <!-- <span class="">View</span> -->
-                                </button>
-
-                                <button (click)="initiateChangeUserStatus($event,user)" class="btn text-white btn-sm"
-                                  [ngClass]="user.status == 'ACTIVE' ? 'btn-danger' : 'btn-success'"
-                                  mat-raised-button matTooltip="Change User's Status" matTooltipPosition="above"
-                                  data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                  role="button" aria-controls="viewReplies-item">
-                                  <i class="bi" [ngClass]="user.status == 'ACTIVE' ? 'bi-slash-circle' : ' bi-circle'"></i>
-                                </button>
-                              </div>
-                            </td>
-                        </tr>
-                      </ng-container>
-
-                      <ng-container id="serverTable" *ngIf="filteredUserList.length < 1">
-                        <tr *ngFor="let user of userList | paginate: { itemsPerPage: 20, currentPage: userListPage,
-                          totalItems:userListLength}; index as i">
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                              {{ user.name }}
-                            </td>
-                            <td>
-                              {{ user.email }}
-                            </td>
-                            <td>
-                              {{ user.phoneNumber }}
-                            </td>
-                            <td>
-                              <div class="flex-column">
-                                {{ user.createdAt | date:'medium' }}
-                              </div>
-                            </td>
-                            <td>
-
-                              <div class="d-flex">
-                                <button (click)="viewUser(user)" class="btn text-white btn-primary btn-sm me-3"
-                                  mat-raised-button matTooltip="View" matTooltipPosition="above"
-                                  data-bs-toggle="offcanvas" href="#viewUserDetails-item"
-                                  role="button" aria-controls="viewUserDetails-item">
-                                  <i class="bi bi-eye"></i>
-                                </button>
-
-                                <button (click)="initiateChangeUserStatus($event,user)" class="btn text-white btn-sm"
-                                  [ngClass]="user.status == 'ACTIVE' ? 'btn-danger' : 'btn-success'"
-                                  mat-raised-button matTooltip="Change User's Status" matTooltipPosition="above"
-                                  data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                  role="button" aria-controls="viewReplies-item">
-                                  <i class="bi" [ngClass]="user.status == 'ACTIVE' ? 'bi-slash-circle' : ' bi-circle'"></i>
-                                </button>
-
-                              </div>
-                            </td>
-                        </tr>
-                      </ng-container>
-
-                    </tbody>
-                  </table>
-
-
-
-                  <div *ngIf="filteredUserList.length > 0" class="d-flex justify-content-between align-items-center mt-4 pt-4">
-                    <a>
-                      <pagination-controls class="my-pagination" (pageChange)="filteredUserListPage = $event"></pagination-controls>
-                    </a>
-                  </div>
-
-                  <div *ngIf="filteredUserList.length < 1" class="d-flex justify-content-between align-items-center mt-4 pt-4">
-                    <a>
-                      <pagination-controls class="my-pagination" (pageChange)="userListPage = $event"></pagination-controls>
-                    </a>
-                  </div>
-
+                <div
+                  *ngIf="filteredUserList.length > 0"
+                  class="d-flex justify-content-between align-items-center mt-4 pt-4"
+                >
+                  <a>
+                    <pagination-controls
+                      class="my-pagination"
+                      (pageChange)="filteredUserListPage = $event"
+                    ></pagination-controls>
+                  </a>
                 </div>
+
+                <div
+                  *ngIf="filteredUserList.length < 1"
+                  class="d-flex justify-content-between align-items-center mt-4 pt-4"
+                >
+                  <a>
+                    <pagination-controls
+                      class="my-pagination"
+                      (pageChange)="userListPage = $event"
+                    ></pagination-controls>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </section>
   </div>
 </div>
 
 <!-- Slide out window for User Details  -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="viewUserDetails-item"
-  aria-labelledby="viewUserDetails-canvas">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="viewUserDetails-item"
+  aria-labelledby="viewUserDetails-canvas"
+>
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="search-canvas">User Details</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-      aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
 
   <div class="offcanvas-body">
-
     <div class="image-box mb-1">
-      <img [src]="userDetail.profilePic" alt="User Image" class="user_image">
+      <img [src]="userDetail.profilePic" alt="User Image" class="user_image" />
     </div>
 
     <div class="channel-title mb-3">
@@ -269,30 +403,30 @@
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Phone Number</label>
-      <h6>{{userDetail.phoneNumber}}</h6>
+      <h6>{{ userDetail.phoneNumber }}</h6>
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Marital Status</label>
-      <h6>{{userDetail.maritalStatus}}</h6>
+      <h6>{{ userDetail.maritalStatus }}</h6>
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium"> Status</label>
-      <h6>{{userDetail.status}}</h6>
+      <h6>{{ userDetail.status }}</h6>
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Date Joined</label>
-      <h6>{{ userDetail.createdAt | date:'medium' }}</h6>
+      <h6>{{ userDetail.createdAt | date : "medium" }}</h6>
     </div>
-<!--
+    <!--
       <div class="channel-title mb-3">
           <label class="text-dark-emphasis fw-medium">Channels Active</label>
           <h6>Marriages, Education, Jobs, Career</h6>
       </div> -->
 
-      <!-- <div class=" d-flex align-items-center justify-content-center mb-5">
+    <!-- <div class=" d-flex align-items-center justify-content-center mb-5">
           <button type="button"
               class="btn btn-success me-3 col-lg-5 col-md-5 col-sm-12"
               data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -304,31 +438,82 @@
               Reject
           </button>
       </div> -->
-
   </div>
-
 </div>
 
-
 <!-- Blacklisted / Whitelisted Modal  -->
-<div class="modal fade" id="exampleModal" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
-          {{ changeUserStatusObject.action == 'BLACKLISTED' ? 'Blacklist' : (changeUserStatusObject.action == 'ACTIVE' ? 'Whitelist': changeUserStatusObject.action)}} User
+          {{
+            changeUserStatusObject.action == "BLACKLISTED"
+              ? "Blacklist"
+              : changeUserStatusObject.action == "ACTIVE"
+              ? "Whitelist"
+              : changeUserStatusObject.action
+          }}
+          User
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body text-center">
-        Are you sure you want to {{ changeUserStatusObject.action == 'BLACKLISTED' ? 'Blacklist' : (changeUserStatusObject.action == 'ACTIVE' ? 'Whitelist': changeUserStatusObject.action)}} this User?
+        Are you sure you want to
+        {{
+          changeUserStatusObject.action == "BLACKLISTED"
+            ? "Blacklist"
+            : changeUserStatusObject.action == "ACTIVE"
+            ? "Whitelist"
+            : changeUserStatusObject.action
+        }}
+        this User?
       </div>
-      <div class="modal-footer d-flex align-items-center justify-content-center">
-        <button (click)="cancelChangeUserStatus($event)" type="button" class="btn btn-outline-danger"
-          data-bs-dismiss="modal">Do Not {{ changeUserStatusObject.action == 'BLACKLISTED' ? 'Blacklist' : (changeUserStatusObject.action == 'ACTIVE' ? 'Whitelist': changeUserStatusObject.action)}}  </button>
-        <button (click)="confirmChangeUserStatus($event)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes, {{ changeUserStatusObject.action == 'BLACKLISTED' ? 'Blacklist' : (changeUserStatusObject.action == 'ACTIVE' ? 'Whitelist': changeUserStatusObject.action)}}  User</button>
+      <div
+        class="modal-footer d-flex align-items-center justify-content-center"
+      >
+        <button
+          (click)="cancelChangeUserStatus($event)"
+          type="button"
+          class="btn btn-outline-danger"
+          data-bs-dismiss="modal"
+        >
+          Do Not
+          {{
+            changeUserStatusObject.action == "BLACKLISTED"
+              ? "Blacklist"
+              : changeUserStatusObject.action == "ACTIVE"
+              ? "Whitelist"
+              : changeUserStatusObject.action
+          }}
+        </button>
+        <button
+          (click)="confirmChangeUserStatus($event)"
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+        >
+          Yes,
+          {{
+            changeUserStatusObject.action == "BLACKLISTED"
+              ? "Blacklist"
+              : changeUserStatusObject.action == "ACTIVE"
+              ? "Whitelist"
+              : changeUserStatusObject.action
+          }}
+          User
+        </button>
       </div>
     </div>
   </div>

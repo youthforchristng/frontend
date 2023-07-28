@@ -5,13 +5,24 @@
   <div class="page-content bg-light-subtle p-3">
       <section class="right-panel">
 
-        <div class="row mb-5">
+        <!-- <div class="row mb-5">
           <div class="col-lg-12 col-md-6 col-sm-12 d-flex">
             <div class="col-lg-8 col-md-12 col-sm-12">
               <h1 class="h3 fw-bold">Posts</h1>
             </div>
           </div>
+        </div> -->
+
+        <div class="mb-3">
+          <div class="d-flex align-items-center">
+              <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+                  aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation" class="navbar-toggler">
+                  <i class="bi bi-list bi-2x me-3" id="side-btn"></i>
+              </button>
+              <label class="fs-3 fw-bold">Posts</label>
+          </div>
         </div>
+
 
           <!-- Beginning of Accounts Section  -->
 
@@ -133,7 +144,7 @@
                                   </div>
                                 </td>
                                 <td>
-                                  <span [ngClass]="post.status == 'APPROVED' ? 'text-bg-success' : (post.status == 'REJECTED' ? 'text-bg-danger' : ' text-bg-warning')" class="badge fs-6">{{ post.status }}</span>
+                                  <span [ngClass]="post.status == 'APPROVED' ? 'bg-success-subtle text-success' : (post.status == 'REJECTED' ? 'bg-danger-subtle text-danger' : (post.status == 'PENDING' ? 'bg-warning-subtle text-dark': ''))" class="badge fs-6">{{ post.status }}</span>
                                 </td>
                                 <td>
                                   <div class="d-flex">
@@ -167,7 +178,7 @@
                                   </div>
                                 </td>
                                 <td>
-                                  <span [ngClass]="post.status == 'APPROVED' ? 'text-bg-success' : (post.status == 'REJECTED' ? 'text-bg-danger' : ' text-bg-warning')" class="badge fs-6">{{ post.status }}</span>
+                                  <span [ngClass]="post.status == 'APPROVED' ? 'bg-success-subtle text-success' : (post.status == 'REJECTED' ? 'bg-danger-subtle text-danger' : (post.status == 'PENDING' ? 'bg-warning-subtle text-dark': ''))" class="badge fs-6">{{ post.status }}</span>
                                 </td>
                                 <td>
                                   <div class="d-flex">
@@ -214,7 +225,7 @@
 
 <!-- Slide out window for View Replies  -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="viewReplies-item"
-  aria-labelledby="viewReplies-canvas">
+  aria-labelledby="viewReplies-canvas" style="width: 100%; overflow-y: auto;">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="search-canvas">Post Details</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
@@ -224,23 +235,23 @@
   <div class="offcanvas-body">
 
 
-    <div class="image-box mb-1">
+    <div class="image-box mb-3">
       <img [src]="viewPost.ownerProfilePic" alt="User Image" class="user_image">
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Posted By</label>
-      <h6>{{ viewPost.ownerName }}</h6>
+      <h6 class="fw-semibold">{{ viewPost.ownerName }}</h6>
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Date & Time</label>
-      <h6>{{ viewPost.createdAt | date:'medium' }}</h6>
+      <h6 class="fw-semibold">{{ viewPost.createdAt | date:'medium' }}</h6>
     </div>
 
     <div class="channel-title mb-3">
       <label class="text-dark-emphasis fw-medium">Channel Name</label>
-      <h6>
+      <h6 class="fw-semibold">
         {{ viewPost.parentServerName ? viewPost.parentServerName : 'N/A' }}
       </h6>
 
@@ -250,7 +261,7 @@
       <label class="text-dark-emphasis fw-medium">Replies Count</label>
 
       <ng-container *ngIf="!isLoadingRepliesCount">
-        <h6>{{replies_count}}</h6>
+        <h6 class="fw-semibold">{{replies_count}}</h6>
       </ng-container>
 
         <ng-container *ngIf="isLoadingRepliesCount">
@@ -269,7 +280,7 @@
 
     <div class="channel-description mb-5">
       <label class="text-dark-emphasis fw-medium mb-1">Message Posted</label>
-      <h6 class="text-secondary-emphasis">{{viewPost.topicDesc}}</h6>
+      <h6 class="text-secondary-emphasis fw-semibold">{{viewPost.topicDesc}}</h6>
     </div>
 
     <div *ngIf="viewPost.status == 'PENDING'" class=" d-flex align-items-center justify-content-center mb-5">

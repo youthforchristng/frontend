@@ -194,7 +194,7 @@ export class RegisterComponent implements OnDestroy {
       username: this.registrationform.value.username?.trim(),
       maritalStatus: this.registrationform.value.maritalstatus?.trim()
     };
-    // console.log(data);
+    console.log(data);
 
     this.isLoading = true;
 
@@ -207,7 +207,7 @@ export class RegisterComponent implements OnDestroy {
   getUserDetailsObserver() {
     const getUserDetailsObserver = {
       next: (response: any) => {
-        // console.log(response);
+        console.log(response);
 
         if (response.statusCode === "00") {
 

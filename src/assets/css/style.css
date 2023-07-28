@@ -393,7 +393,10 @@ a {
 }
 
 
-
+.bi-2x
+{
+	font-size: 24px;
+}
 
 
 
@@ -432,7 +435,7 @@ a {
         left: 0 !important;
         position: relative;
         height: 100vh;
-        overflow-y: hidden;
+        overflow-y: auto;
     }
 
     .page-headers {
