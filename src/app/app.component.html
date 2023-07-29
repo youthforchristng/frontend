@@ -1,12 +1,17 @@
-<div ngxUiLoaderBlurred>
+<!-- <div ngxUiLoaderBlurred>
   <router-outlet></router-outlet>
-</div>
+</div> -->
 
-<ng-container *ngIf="loaderService.getIsLoading()">
+<router-outlet></router-outlet>
+
+<!-- <ng-container *ngIf="loaderService.getIsLoading()">
   <ngx-ui-loader [fgsTemplate]="foregroundSpinner" >
   </ngx-ui-loader>
-</ng-container>
+</ng-container> -->
 
-<ng-template #foregroundSpinner>
+<!-- <ngx-ui-loader >
+</ngx-ui-loader> -->
+
+<!-- <ng-template #foregroundSpinner>
   <custom-loader></custom-loader>
-</ng-template>
+</ng-template> -->

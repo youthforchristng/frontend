@@ -336,7 +336,7 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
     // console.log(data);
 
     // this.showBackground();
-    this.ngxLoader.startBackground();
+    this.ngxLoader.startBackground('master');
 
     // setTimeout(()=> this.hideBackground(), 5000)
 
@@ -345,7 +345,7 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
         // console.log(response);
 
         // this.hideBackground();
-        this.ngxLoader.stopBackground();
+        this.ngxLoader.stopBackground('master');
 
         if (response.statusCode == '00') {
           // this._snackbar.showSnackbar('Successful', 'Close');
@@ -357,8 +357,8 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
         }
       },
       error: (error: any) => {
-        this.ngxLoader.stopBackground();
         // this.hideBackground();
+        this.ngxLoader.stopBackground('master');
         this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
       },
     };

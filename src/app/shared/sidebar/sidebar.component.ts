@@ -92,13 +92,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.role = user.role.toLowerCase();
     this.maritalstatus = user.maritalStatus.toLowerCase();
     this.profilePic = user.profilePic;
-    this.role = 'admin';
+    // this.role = 'admin';
     this.notAllowed = user.notAllowed;
 
-    this.getRooms();
+    this.getServers();
   };
 
-  getRooms() {
+  getServers() {
 
     this.isLoadingServers = true;
 

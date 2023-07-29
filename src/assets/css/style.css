@@ -224,14 +224,7 @@ a {
 }
 
 
-/* .page-message-box {
-  width: 100%;
-  background-color: #eee;
-  position: fixed;
-  bottom: 0;
-} */
-
-
+/* Main Chat  */
 .page-message-box {
   width: 100%;
   position: absolute;
@@ -252,6 +245,27 @@ a {
 }
 
 
+/* Main Chat  */
+.reply-message-box {
+  bottom: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
+  z-index: 1;
+
+}
+
+.reply-message-box textarea {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: hidden;
+  resize: none;
+  margin: 0;
+
+}
+
+
+
+
 /*
 .night-mode {
     background-color: #333333 !important;
@@ -265,8 +279,8 @@ a {
 
 .page-options {
     position: fixed;
-    top: 20px;
-    right: 30px;
+    top: 4px;
+    right: 10px;
 }
 
 
@@ -275,7 +289,6 @@ a {
     align-self: center;
     padding: 10px;
 }
-
 
 
 
@@ -375,7 +388,7 @@ a {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .page-img {
@@ -454,40 +467,82 @@ a {
 
     .page-options {
         position: absolute;
-        top: 20px;
-        right: 30px;
+        top: 4px;
+        right: 10px;
     }
 
-    .page-body {
-        width: 100%;
-        max-width: 100%;
-        /* height: 75vh; */
-        display: flex;
-        flex-direction: column-reverse;
-    }
 
-    .page-wrapper {
-        overflow-y: scroll;
-        background-color: #ccc4d9;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
 
-    .page-message-box {
-        width: 100%;
-        height: 10vh;
-        background-color: #fff;
-        border-top: 2px solid gainsboro;
-        box-shadow: 0px -2px 5px gainsboro;
-    }
+    .landing-page-body {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* height: 100vh; */
+      overflow-y: auto;
+  }
 
-    .page-message-box textarea {
-        width: 100%;
-        max-height: 200px;
-        overflow-y: hidden;
-        resize: none;
-        margin: 0;
 
-    }
+
+.page-body {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.page-wrapper {
+  width: 100%;
+  height: 82vh;
+  position: absolute;
+  top: 7vh;
+  overflow-y: auto !important;
+  background-color: #ccc4d9 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+
+}
+
+
+
+
+.page-message-box {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: #fcfcfc;
+  box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
+  z-index: 1;
+
+}
+
+.page-message-box textarea {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: hidden;
+  resize: none;
+  margin: 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     .message {
         background-color: #fff;

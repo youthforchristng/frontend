@@ -17,7 +17,11 @@
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
         >
-          <i class="bi bi-grid-fill me-3" style="color: #000000"></i>
+          <i
+            class="bi bi-list bi-2x me-3"
+            style="color: #000000"
+            id="side-btn"
+          ></i>
         </button>
 
         <div class="flex-column">
@@ -32,28 +36,34 @@
       <div class="page-options">
         <a
           (click)="resetSearch()"
-          class="btn btn-primary me-1"
+          class="btn me-1"
           data-bs-toggle="offcanvas"
           href="#searchCanvas-item"
           role="button"
           aria-controls="searchCanvas-item"
         >
-          <i class="bi bi-search"></i>
+          <i class="bi bi-search bi-2x text-primary"></i>
         </a>
 
         <div class="btn-group">
           <button
+            class="btn"
             type="button"
-            class="btn btn-dark rounded"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="bi bi-three-dots-vertical"></i>
+            <i class="bi bi-three-dots-vertical bi-2x text-dark"></i>
           </button>
 
           <ul class="dropdown-menu">
             <li>
-              <button (click)="leaveServer()" class="dropdown-item" type="button">Leave Channel</button>
+              <button
+                (click)="leaveServer()"
+                class="dropdown-item"
+                type="button"
+              >
+                Leave Channel
+              </button>
             </li>
             <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
           </ul>
@@ -64,7 +74,7 @@
 
   <!-- Page Body Goes Here -->
   <div class="page-body">
-    <div class="page-wrapper p-3">
+    <div class="page-wrapper px-3 py-4">
       <ng-container *ngIf="isLoadingTopics">
         <div class="chat-bubble">
           <div class="message">
@@ -94,9 +104,34 @@
             <div [ngClass]="userId == i.ownerId ? 'message-sender' : 'message'">
               <h4 class="acct-name fw-bold">
                 {{ i.ownerName }}
+
+                <div class="btn-group">
+                  <button
+                    class="btn"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-chevron-down text-dark"></i>
+                  </button>
+
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        (click)="leaveServer()"
+                        class="dropdown-item"
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                    <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
+                  </ul>
+                </div>
               </h4>
+
               <span class="time mb-3">
-                {{ i.createdAt | date : "medium" }}
+                {{ i.createdAt | removeMilliseconds : "medium" }}
               </span>
               <p class="comment mb-3">
                 {{ i.topicDesc }}
@@ -140,7 +175,8 @@
       >
         <ng-container *ngIf="!sendingMessage">
           <span class="mx-3">Send</span>
-          <i class="bi bi-send-fill text-white"></i>
+          <!-- <i class="bi bi-send-fill"></i> -->
+          <i class="bi bi-arrow-right text-white"></i>
         </ng-container>
 
         <span *ngIf="sendingMessage">
@@ -182,8 +218,11 @@
     ></button>
   </div>
 
-  <div class="offcanvas-body flex-column" style="height: 100vh; overflow-y: hidden;">
-    <div class="canvas-header" style="height: 75vh; overflow-y: auto;">
+  <div
+    class="offcanvas-body flex-column"
+    style="height: 100vh; overflow-y: hidden"
+  >
+    <div class="canvas-header" style="height: 70vh; overflow-y: auto">
       <div class="post d-flex align-items-start mb-3">
         <img
           [src]="activeTopic.ownerProfilePic"
@@ -195,7 +234,7 @@
             {{ activeTopic.ownerName }}
           </h3>
           <p class="custom-time mb-1">
-            {{ activeTopic.createdAt | date : "medium" }}
+            {{ activeTopic.createdAt | removeMilliseconds : "medium" }}
           </p>
           <p class="comment mb-1">
             {{ activeTopic.topicDesc }}
@@ -205,7 +244,8 @@
             *ngIf="!isLoadingReplies"
             class="border-top bg-primary-subtle p-2 mb-3"
           >
-            <strong>{{ replyCount }}</strong> {{ replyCount !==  1 ?  'replies' : 'reply'}}
+            <strong>{{ replyCount }}</strong>
+            {{ replyCount !== 1 ? "replies" : "reply" }}
           </div>
         </div>
       </div>
@@ -217,14 +257,50 @@
 
       <ng-container *ngIf="!isLoadingReplies">
         <ng-container *ngFor="let i of replies">
-          <div class="reply-container" style="height: auto;">
+          <div class="reply-container" style="height: auto">
             <div class="replies">
               <div class="d-flex align-items-start">
                 <img [src]="i.profilePic" alt="User Image" class="user-image" />
                 <div class="mx-3">
                   <h3 class="acct-name fw-bold">{{ i.username }}</h3>
-                  <p class="custom-time mb-1">{{ i.time | date : "medium" }}</p>
+                  <p class="custom-time mb-1">
+                    {{ i.time | removeMilliseconds : "medium" }}
+                  </p>
                   <p class="comment">{{ i.text }}</p>
+
+                </div>
+
+                <div class="btn-group">
+                  <!-- <button
+                    class="btn"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots"></i>
+                  </button> -->
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-chevron-down text-dark"></i>
+                  </button>
+
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        (click)="leaveServer()"
+                        class="dropdown-item"
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                    <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
+                  </ul>
                 </div>
               </div>
             </div>
@@ -235,8 +311,8 @@
       </ng-container>
     </div>
 
-    <div class="canvas-header" style="height: 20vh;">
-      <div class="page-message-box mb-2" *ngIf="!isLoadingReplies">
+    <div class="canvas-header" style="height: 20vh">
+      <div class="reply-message-box mb-3" *ngIf="!isLoadingReplies">
         <div class="flex-column">
           <textarea
             (keyup)="newReply()"
@@ -250,10 +326,11 @@
           </div>
           <button
             (click)="sendReply()"
-            class="send-btn btn text-white y4c-color d-flex"
+            class="send-btn btn text-white y4c-color d-flex align-items-center justify-content-center col-12"
           >
-            <span class="mx-3">Send</span>
-            <i class="bi bi-send-fill text-white"></i>
+            <span class="me-3">Send</span>
+            <!-- <i class="bi bi-send-fill"></i> -->
+            <i class="bi bi-arrow-right text-white"></i>
           </button>
         </div>
       </div>
@@ -309,25 +386,26 @@
             <div class="mx-3">
               <h3 class="acct-name fw-bold">{{ i.ownerName }}</h3>
               <p class="custom-time mb-1">
-                {{ i.createdAt | date : "medium" }}
+                {{ i.createdAt | removeMilliseconds : "medium" }}
               </p>
               <p
                 class="comment mb-3"
                 [innerHTML]="highlightText(i.topicDesc)"
               ></p>
+
+              <a
+                (click)="viewReplies(i, $event)"
+                class="btn text-white btn-primary btn-sm"
+                data-bs-toggle="offcanvas"
+                href="#viewReplies-item"
+                role="button"
+                aria-controls="viewReplies-item"
+              >
+                <span class="mx-3">View Replies</span>
+              </a>
             </div>
           </div>
         </div>
-        <a
-          (click)="viewReplies(i, $event)"
-          class="btn text-white btn-primary btn-sm"
-          data-bs-toggle="offcanvas"
-          href="#viewReplies-item"
-          role="button"
-          aria-controls="viewReplies-item"
-        >
-          <span class="mx-3">View Replies</span>
-        </a>
       </div>
     </ng-container>
   </div>
@@ -402,3 +480,5 @@
     </div>
   </div>
 </div>
+
+<ngx-ui-loader> </ngx-ui-loader>

@@ -13,6 +13,8 @@ import { ChannelsComponent } from '../components/channels/channels.component';
 import { UserRoutingModule } from '../routes/user-routing.module';
 import { DashboardModule } from './dashboard.module';
 import { UserComponent } from '../components/user/user.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+// import { RemoveMillisecondsPipe } from '../directives/remove-milliseconds.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { UserComponent } from '../components/user/user.component';
     DashboardModule,
     UserRoutingModule,
     SharedModule,
+    NgxUiLoaderModule
     // NgxPaginationModule,
     // MatProgressBarModule,
     // MaterialModule

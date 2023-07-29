@@ -20,6 +20,7 @@ import { HighlightPipe } from './directives/highlight.pipe';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+// import { RemoveMillisecondsPipe } from './directives/remove-milliseconds.pipe';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   // Configuration options for ngx-ui-loader
@@ -38,6 +39,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     // UserComponent
     // SkeletonLoaderComponent,
     // RepliesComponent
+    // RemoveMillisecondsPipe,
   ],
   imports: [
     BrowserModule,

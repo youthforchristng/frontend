@@ -18,6 +18,7 @@ import { TableSkeletonLoaderComponent } from '../shared/table-skeleton-loader/ta
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 import { NightModeToggleComponent } from '../shared/night-mode-toggle/night-mode-toggle.component';
+import { RemoveMillisecondsPipe } from '../directives/remove-milliseconds.pipe';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { NightModeToggleComponent } from '../shared/night-mode-toggle/night-mode
     TableSkeletonLoaderComponent,
     ConfirmationDialogComponent,
     NightModeToggleComponent,
+    RemoveMillisecondsPipe
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { NightModeToggleComponent } from '../shared/night-mode-toggle/night-mode
     TableSkeletonLoaderComponent,
     ConfirmationDialogComponent,
     NightModeToggleComponent,
+    RemoveMillisecondsPipe
   ],
   providers: [
     // { provide: RouterLinkActiveOptions, useValue: { exact: true } }
