@@ -44,7 +44,8 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                       <ng-container *ngIf="!isLoadingPostList">
-                        Filter by Status
+                        <span *ngIf="status == 'Status'">Filter By {{ status }} </span>
+                        <span *ngIf="status != 'Status'"> {{ status }} </span>
                       </ng-container>
 
                       <ng-container *ngIf="isLoadingPostList">
@@ -183,7 +184,7 @@
                                 <td>
                                   <div class="d-flex">
 
-                                    <a (click)="view(post)" class="btn text-white btn-primary btn-sm"
+                                    <a style="margin-right: 5px;" (click)="view(post)" class="btn text-white btn-primary btn-sm"
                                       data-bs-toggle="offcanvas" href="#viewReplies-item"
                                       mat-raised-button
                                       matTooltip="View"
@@ -192,6 +193,18 @@
                                       <span class="mx-3">
                                         <!-- View -->
                                         <i class="bi bi-eye"></i>
+                                      </span>
+                                    </a>
+                                    <a
+                                      (click)="deleteTopic(post)"
+                                      class="btn text-white btn-danger btn-sm"
+                                      mat-raised-button
+                                      matTooltip="Delete"
+                                      matTooltipPosition="above"
+                                      role="button">
+                                      <span class="mx-3">
+                                        <!-- Delete -->
+                                        <i class="bi bi-trash"></i>
                                       </span>
                                     </a>
 
@@ -331,3 +344,6 @@
   </div>
 
 </div>
+
+
+<ngx-ui-loader> </ngx-ui-loader>

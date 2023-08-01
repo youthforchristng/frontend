@@ -57,12 +57,14 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: darkslategrey;
+    background-color: darkslategrey !important;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    padding: 0px;
+    padding: 3rem;
+    max-width: 100%;
+    height: auto;
     overflow: hidden;
     /* background: url(../images/youths.jpg); */
     background: url(../images/purple_bg.png);
@@ -71,6 +73,56 @@ html, body {
     background-repeat: repeat-x !important;
 }
 
+
+.right-wrapper-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: darkslategrey !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0px;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* background: url(../images/youths.jpg); */
+  /* background: url(../images/purple_bg.png); */
+  /* background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important; */
+}
+
+
+.container-img
+{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: darkslategrey !important; */
+    /* position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0px; */
+    max-width: 100%;
+    /* height: auto; */
+    overflow: hidden;
+    /* background: url(../images/youths.jpg); */
+    /* background: url(../images/purple_bg.png); */
+    background-position: center !important;
+    object-fit: cover !important;
+    /* background-repeat: repeat-x !important; */
+}
+
+
+.container-img img
+{
+  width: 100%;
+  height: auto;
+  /* display: block; */
+}
 
 
 .left-wrapper .logo .form-logo {
@@ -185,8 +237,28 @@ a {
     left: 300px;
     position: fixed;
     height: 100vh;
-    /* overflow-y: auto; */
-}
+
+
+    /* display: flex;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    background-color: darkslategrey;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0px;
+    overflow: hidden; */
+    /* background: url(../images/youths.jpg); */
+    /* background: url(../images/purple_bg.png);
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: repeat-x !important; */
+  }
+  /* overflow-y: auto; */
 
 
 .page-headers {
@@ -422,6 +494,8 @@ a {
     }
 }
 
+
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 992px) {
 
@@ -503,9 +577,6 @@ a {
 
 }
 
-
-
-
 .page-message-box {
   width: 100%;
   position: absolute;
@@ -524,22 +595,6 @@ a {
   margin: 0;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

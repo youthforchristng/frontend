@@ -84,11 +84,17 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
     if(this.createAtopicSubscription){
       this.createAtopicSubscription.unsubscribe()
     };
+    if(this.deleteTopicSubscription){
+      this.deleteTopicSubscription.unsubscribe()
+    };
     if(this.findTopicsUnderServerSubscription){
       this.findTopicsUnderServerSubscription.unsubscribe()
     };
     if(this.fetchRepliesSubscription){
       this.fetchRepliesSubscription.unsubscribe()
+    };
+    if(this.userListSubscription){
+      this.userListSubscription.unsubscribe()
     };
   }
 
@@ -123,13 +129,105 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
 
     this.fullname = this.user.name;
     this.maritalstatus = this.user.maritalStatus.toLowerCase();
-    this.role = this.user.role.toLowerCase();
+    this.role = this.user.role;
+    // console.log(this.role);
+
     this.notAllowed = this.user.notAllowed;
   };
 
-  signout(){
-    this._storage.signout();
+  openChannelInfo(){
+    this.getUserList();
   };
+
+  getUserList(){
+
+    let data = {
+      serverId: this.serverId
+    };
+
+    // console.log(data);
+
+    this.isLoadingUserList = true;
+
+    this._snackbar.closeAllSnackBars();
+
+    const user_count_observer = {
+      next: (response: any) => {
+
+        this.isLoadingUserList = false;
+
+        if (response.statusCode === "00") {
+          this.userList = response.data;
+        }
+        else if(response.statusCode === "96") {
+          this._snackbar.showSnackbar(response.statusMessage, 'Close');
+        }
+        else {
+          this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+        };
+
+      },
+      error: (error: any) => {
+        this.isLoadingUserList = false;
+        this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+      }
+    };
+    this.userListSubscription = this._api.user_list_per_server(data).subscribe(user_count_observer);
+  };
+  // Function to handle filtering when searchText changes
+  applySearchUserFilter() {
+    if (this.searchText.trim() === '') {
+      this.filteredUsers = []; // If search text is empty, show all items
+    } else {
+      this.filteredUsers = this.userList.filter((user: any) =>
+        user.name.toLowerCase().includes(this.searchText.toLowerCase())
+      ); // Apply filter based on item name
+      this.filteredUsers.length < 1 ? this.noUserList = true : this.noUserList = false;
+    }
+  };
+
+  blockUser(i: any){
+    // console.log(i);
+    // console.log(i.userId);
+
+    let data ={
+      userId:i.userId,
+      channelId: this.serverId
+    };
+
+    // console.log(data);
+
+
+    this.isLoadingBlockUser = true;
+
+    this._snackbar.closeAllSnackBars();
+
+    const user_count_observer = {
+      next: (response: any) => {
+
+        this.isLoadingBlockUser = false;
+
+        if (response.statusCode === "00") {
+          // this.userList = response.data;
+
+        }
+        else if(response.statusCode === "96") {
+          this._snackbar.showSnackbar(response.statusMessage, 'Close');
+        }
+        else {
+          this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+        };
+
+      },
+      error: (error: any) => {
+        this.isLoadingBlockUser = false;
+        this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+      }
+    };
+    this.blockUserSubscription = this._api.user_list_per_server(data).subscribe(user_count_observer);
+
+  };
+
 
   find_topics_under_server(id: any){
     let data: any = {
@@ -301,6 +399,53 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
     this.filteredItems = [];
   };
 
+  deleteTopic(i: any){
+
+    this._alert.are_you_sure()
+    .then((result)=>{
+      if(result.isConfirmed){
+
+        let data = {
+          id: i._id
+        };
+
+        this.ngxLoader.startBackground('master');
+
+        const deleteTopicObserver = {
+          next: (response: any) => {
+
+            this.ngxLoader.stopBackground('master');
+
+            if (response.statusCode == '00') {
+              let index = this.topics.findIndex((i: any) => {
+                return i._id === data.id
+              });
+              if (index > -1) {
+                this.topics.splice(index, 1);
+              };
+              this._snackbar.showSnackbar('Deleted', 'Close');
+
+            } else if (response.statusCode == '96') {
+              this._snackbar.showSnackbar(response.statusMessage, 'Close');
+            } else {
+              this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+            }
+          },
+          error: (error: any) => {
+            this.ngxLoader.stopBackground('master');
+            this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+          },
+        };
+
+        this.deleteTopicSubscription = this._api.delete_a_topic(data).subscribe(deleteTopicObserver);
+
+      };
+    })
+
+
+
+  }
+
   // Function to handle filtering when searchText changes
   applySearchFilter() {
     if (this.searchText.trim() === '') {
@@ -367,10 +512,13 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
 
   };
 
+  noUserList: Boolean = false;
+
 
   topics: any = [];
   activeTopic: any = [];
   filteredItems: any = [];
+  filteredUsers: any = [];
 
   reply: any = '';
   replies: any[] = [];
@@ -384,11 +532,16 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
   maritalstatus!: any;
 
   user: any = [];
+  userList: any[] = [];
 
   activeRoom: any = [];
 
   isLoadingTopics: Boolean = false;
   isLoadingReplies: Boolean = false;
+
+  isLoadingUserList: Boolean = false;
+
+  isLoadingBlockUser: Boolean = false;
 
   emptyReply: Boolean = false;
 
@@ -417,5 +570,9 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
   private fetchRepliesSubscription!: Subscription;
   private findTopicsUnderServerSubscription!: Subscription;
   private createAtopicSubscription!: Subscription;
+  private deleteTopicSubscription!: Subscription;
+
+  private userListSubscription!: Subscription;
+  private blockUserSubscription!: Subscription;
 
 }

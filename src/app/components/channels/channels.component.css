@@ -45,3 +45,8 @@
   color: #fff;
   background-color: black; /* Full black on hover */
 }
+
+
+.flex-grow {
+  flex-grow: 1;
+}

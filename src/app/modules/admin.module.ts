@@ -12,12 +12,15 @@ import { AdminChannelsComponent } from '../components/admin/channels/channels.co
 import { AdminUsersComponent } from '../components/admin/users/users.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AdminLoginMediaComponent } from '../components/admin/login-media/login-media.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
     AdminPostsComponent,
     AdminChannelsComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    AdminLoginMediaComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AdminRoutingModule,
     SharedModule,
     NgxPaginationModule,
+    NgxUiLoaderModule
     // MatProgressBarModule,
     // MaterialModule
   ]

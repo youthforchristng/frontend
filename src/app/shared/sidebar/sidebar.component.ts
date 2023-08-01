@@ -74,7 +74,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     const joinServerObserver = {
       next: (response: any) => {
-        console.log(response);
+        // console.log(response);
       },
       error: (error: any) => {
       },
@@ -89,7 +89,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     this.userId = user._id;
     this.fullname = user.name;
-    this.role = user.role.toLowerCase();
+    this.role = user.role;
     this.maritalstatus = user.maritalStatus.toLowerCase();
     this.profilePic = user.profilePic;
     // this.role = 'admin';

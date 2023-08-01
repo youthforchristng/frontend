@@ -1,0 +1,119 @@
+<div class="d-flex">
+
+  <admin-sidebar></admin-sidebar>
+
+  <div style="overflow-y: auto;" class="page-content bg-light-subtle p-3">
+      <section class="right-panel">
+
+        <div class="mb-5">
+          <div class="d-flex align-items-center">
+            <button
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasDarkNavbar"
+              aria-controls="offcanvasDarkNavbar"
+              aria-label="Toggle navigation"
+              class="navbar-toggler"
+            >
+              <i class="bi bi-list bi-2x me-3" id="side-btn"></i>
+            </button>
+            <label class="fs-3 fw-bold mb-1">Event Information</label>
+          </div>
+          <h6 class="text-secondary">Select the appropriate information to be displayed on the login banner</h6>
+        </div>
+
+
+          <!-- Beginning of Table Section  -->
+
+
+          <div class="text-primary-emphasis col-12 mb-5">
+            <!-- <h4 class="display-6 mb-3"><strong>Event Information</strong></h4> -->
+        </div>
+
+
+          <div class="row mb-5">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card border-secondary-subtle mb-5">
+                <div class="card-body">
+<!--
+                  <div *ngIf="noServerList"
+                    class="no-data-text bg-light-grey"
+                    style="text-align: center;
+                    vertical-align: middle;
+                    padding-top: 5%;
+                    padding-bottom: 5%;
+                    font-weight: bolder;" >
+                      No Data
+                  </div> -->
+
+                  <form>
+
+
+                    <div *ngIf="!!isMedia" class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-5">
+                      <label class="form-label fw-semibold">Select File</label>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">
+                          <i class="bi bi-envelope-fill"></i>
+                        </span>
+                        <input #myInput (change)="onFileSelected($event)" type="file" class="form-control" />
+
+
+                      </div>
+
+                      <!-- <div style="color: red !important;" *ngIf="text?.invalid && (text?.dirty || text?.touched)">
+                        <div *ngIf="text?.errors?.['required']">Text is required.</div>
+                      </div> -->
+
+                    </div>
+
+                    <div *ngIf="!isMedia" class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-5">
+                      <label class="form-label fw-semibold">Text</label>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">
+                          <i class="bi bi-envelope-fill"></i>
+                        </span>
+
+                        <textarea type="text" autocomplete="off" class="form-control" name="text" maxlength="300" [(ngModel)]="text" placeholder="Enter text"></textarea>
+                        <!-- <input type="text" autocomplete="off" class="form-control" name="text" [(ngModel)]="text" placeholder="Enter text"> -->
+                      </div>
+
+                      <!-- <div style="color: red !important;" *ngIf="text?.invalid && (text?.dirty || text?.touched)">
+                        <div *ngIf="text?.errors?.['required']">Text is required.</div>
+                      </div> -->
+
+                    </div>
+
+                    <div class="form-group me-5 col-lg-10 col-md-12 col-sm-12 mb-5">
+                      <label for="upload-image" style="margin-right: 10px;"> Upload Image</label>
+                      <input #myInput (change)="selectMediaType()" type="checkbox" id="upload-image" name="isMedia" [(ngModel)]="isMedia" />
+                    </div>
+
+                  </form>
+
+                </div>
+
+
+              </div>
+
+              <div class="d-grid col-lg-4 col-md-6 col-sm-12 mx-auto mb-3 text-center">
+
+                <button
+                  class="btn btn-md text-white y4c-color mb-3"
+                  [disabled]="isLoading"
+                  type="submit"
+                  (click)="submit()">
+                    <span *ngIf="!isLoading">
+                      Submit
+                    </span>
+                    <span *ngIf="isLoading">
+                      Please Wait ...
+                    </span>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+      </section>
+  </div>
+</div>

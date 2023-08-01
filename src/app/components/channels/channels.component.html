@@ -58,6 +58,17 @@
           <ul class="dropdown-menu">
             <li>
               <button
+                (click)="openChannelInfo()"
+                class="dropdown-item"
+                data-bs-toggle="offcanvas"
+                href="#channel-info" type="button"
+                aria-controls="description-canvas"
+              >
+                Channel Info
+              </button>
+            </li>
+            <li>
+              <button
                 (click)="leaveServer()"
                 class="dropdown-item"
                 type="button"
@@ -105,7 +116,7 @@
               <h4 class="acct-name fw-bold">
                 {{ i.ownerName }}
 
-                <div class="btn-group">
+                <div class="btn-group" *ngIf="(userId == i.ownerId) || (role == 'ADMIN')">
                   <button
                     class="btn"
                     type="button"
@@ -118,14 +129,13 @@
                   <ul class="dropdown-menu">
                     <li>
                       <button
-                        (click)="leaveServer()"
+                        (click)="deleteTopic(i)"
                         class="dropdown-item"
                         type="button"
                       >
                         Delete
                       </button>
                     </li>
-                    <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
                   </ul>
                 </div>
               </h4>
@@ -155,6 +165,9 @@
   </div>
 
   <!-- Page Message Box Goes Here -->
+  <div class="full-body">
+
+  </div>
   <div class="page-message-box p-3">
     <div class="d-flex">
       <!-- <button class="send-btn btn text-white y4c-color d-flex">
@@ -270,15 +283,15 @@
 
                 </div>
 
-                <div class="btn-group">
-                  <!-- <button
-                    class="btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-three-dots"></i>
-                  </button> -->
+                <!-- <button
+                  class="btn"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-three-dots"></i>
+                </button> -->
+                <!-- <div class="btn-group">
 
                   <button
                     class="btn"
@@ -292,16 +305,15 @@
                   <ul class="dropdown-menu">
                     <li>
                       <button
-                        (click)="leaveServer()"
+                        (click)="deleteTopic(i)"
                         class="dropdown-item"
                         type="button"
                       >
                         Delete
                       </button>
                     </li>
-                    <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
                   </ul>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -439,44 +451,137 @@
     <div class="channel-description mb-5">
       <label class="text-secondary fw-semibold">Description</label>
       <h6 class="text-secondary-emphasis">
-        A town hall different from bala blu, blue blu bulaba. broom broom broom
-        brooooooooom. Bala blu blue blu bulaba. The farmers will make more
-        money. Your lunch will not be imported, cassava garri ewa and ehhh
-        ehhhhnn. The farmer will make money, the dinner would be cassava, eba,
-        ewa and everything.
+        {{ activeRoom.description }}
       </h6>
     </div>
 
-    <div class="channel-members">
+    <div *ngIf="!isLoadingUserList" class="channel-members">
       <div class="members-search mb-3">
         <label class="text-secondary fw-semibold mb-1">Members</label>
         <form class="d-flex" role="search">
           <input
             class="form-control me-2"
-            type="search"
+            type="text"
             placeholder="Search"
-            aria-label="Search"
+            name="searchText"
+            [(ngModel)]="searchText"
+            autocomplete="off"
+            (keyup)="applySearchUserFilter()"
           />
-          <button class="btn y4c-color text-white" type="submit">Search</button>
+          <!-- <button class="btn y4c-color text-white"  type="submit">Search</button> -->
         </form>
       </div>
 
-      <div class="members-list p-1 border-bottom">
-        <div class="member-item d-flex">
-          <img
-            src="assets/images/bongis.jpg"
-            alt="User Image"
-            class="user-image"
-          />
-
-          <h4
-            class="acct-name fw-bold"
-            style="align-self: center; margin-left: 10px"
-          >
-            John Doe
-          </h4>
+      <ng-container *ngIf="!!noUserList">
+        <div
+        class="no-data-text bg-light-grey"
+        style="text-align: center;
+        vertical-align: middle;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        font-weight: bolder;"
+        >
+        No User found
         </div>
-      </div>
+      </ng-container>
+
+      <ng-container *ngIf="filteredUsers.length < 1 && !noUserList">
+        <div class="members-list p-1 border-bottom" *ngFor="let info of userList">
+          <div class="member-item d-flex">
+            <img
+              [src]="info.profilePic"
+              alt="User Image"
+              class="user-image"
+            />
+
+            <h4
+              class="acct-name fw-bold"
+              style="align-self: center; margin-left: 10px"
+            >
+              {{info.name}}
+            </h4>
+
+            <div class="flex-grow"></div>
+
+            <!-- <div class="btn-group">
+              <button
+                class="btn"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-three-dots-vertical bi-2x text-dark"></i>
+              </button>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    (click)="blockUser(info)"
+                    class="dropdown-item"
+                    aria-controls="description-canvas"
+                    type="button"
+                  >
+                    Block User
+                  </button>
+                </li>
+              </ul>
+            </div> -->
+
+          </div>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngIf="filteredUsers.length > 0 && !noUserList">
+        <div class="members-list p-1 border-bottom" *ngFor="let info of filteredUsers">
+          <div class="member-item d-flex">
+            <img
+              [src]="info.profilePic"
+              alt="User Image"
+              class="user-image"
+            />
+
+            <h4
+              class="acct-name fw-bold"
+              style="align-self: center; margin-left: 10px"
+            >
+              {{info.name}}
+            </h4>
+
+            <div class="flex-grow"></div>
+
+            <!-- <div class="btn-group">
+              <button
+                class="btn"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-three-dots-vertical bi-2x text-dark"></i>
+              </button>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    (click)="blockUser(info)"
+                    class="dropdown-item"
+                    aria-controls="description-canvas"
+                    type="button"
+                  >
+                    Block User
+                  </button>
+                </li>
+              </ul>
+            </div> -->
+
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="isLoadingUserList">
+      <img [src]="imageSpinner" alt="Please Wait ..." style="margin: 10px !important;" class="rounded-circle"
+      width="15" height="15">
     </div>
   </div>
 </div>

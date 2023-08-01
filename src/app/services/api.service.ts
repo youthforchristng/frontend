@@ -40,6 +40,28 @@ export class ApiService {
   baseurl = 'https://yfc-backend.onrender.com'
   // baseurl = 'http://10.70.1.167:4311'
 
+  get_login_media(): Observable<any[]> {
+    let url = this.baseurl + "/authMedia/get-latest"
+    return this._http.get<any[]>(url, { headers: this.header()}
+    )
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
+  save_login_media(data: any) {
+    let url = this.baseurl + "/authMedia/save-media"
+    return this._http.post(url, data, { headers: this.header()}
+    )
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
   register(data: any) {
     let url = this.baseurl + "/users/register"
     return this._http.post(url, data, { headers: this.header()}
@@ -98,6 +120,16 @@ export class ApiService {
     );
   };
 
+  user_list_per_server(data: any) {
+    let url = this.baseurl + "/server/user-list";
+    return this._http.post(url, data, { headers: this.header()})
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
   create_a_server(data: any) {
     let url = this.baseurl + "/server/create-server";
     return this._http.post(url, data, { headers: this.header()})
@@ -120,7 +152,7 @@ export class ApiService {
 
   join_server(data: any) {
     let url = this.baseurl + "/server/join-server";
-    console.log(url);
+    // console.log(url);
 
     return this._http.post(url, data, { headers: this.header()})
     .pipe(
@@ -132,8 +164,18 @@ export class ApiService {
 
   leave_server(data: any) {
     let url = this.baseurl + "/server/leave-server";
-    console.log(url);
+    // console.log(url);
 
+    return this._http.post(url, data, { headers: this.header()})
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
+  block_user_from_a_server(data: any) {
+    let url = this.baseurl + "/server/delete-server";
     return this._http.post(url, data, { headers: this.header()})
     .pipe(
       map(response => response),
@@ -242,6 +284,16 @@ export class ApiService {
 
   change_user_status(data: any) {
     let url = this.baseurl + "/users/process-user";
+    return this._http.post(url, data, { headers: this.header()})
+    .pipe(
+      map(response => response),
+      retry(3),
+      shareReplay()
+    );
+  };
+
+  remove_user(data: any) {
+    let url = this.baseurl + "/users/no-access-to-channel";
     return this._http.post(url, data, { headers: this.header()})
     .pipe(
       map(response => response),

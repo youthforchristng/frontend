@@ -1,33 +1,40 @@
 <div class="d-flex align-items-center justify-contents-center">
   <div class="left-wrapper col-lg-6 col-md-12 col-sm-12 p-5 login-bground">
-
     <div class="logo mb-3">
-      <img src="assets/images/yfc.png" alt="" class="form-logo">
+      <img src="assets/images/yfc.png" alt="" class="form-logo" />
     </div>
 
     <div class="text-primary-emphasis col-12 mb-5">
-      <h4 class="display-6 mb-3"><strong>Welcome Back, Please Login</strong></h4>
+      <h4 class="display-6 mb-3"><strong>Welcome, Please Login</strong></h4>
       <h6>Enter the correct login details in the fields below</h6>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <form [formGroup]="loginform" (ngSubmit)="login()">
-
         <div class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-5">
           <label class="form-label fw-semibold">Email</label>
           <div class="input-group mb-3">
             <span class="input-group-text">
               <i class="bi bi-envelope-fill"></i>
             </span>
-            <input type="email" autocomplete="off" class="form-control" formControlName="email" placeholder="Enter your email">
-
+            <input
+              type="email"
+              autocomplete="off"
+              class="form-control"
+              formControlName="email"
+              placeholder="Enter your email"
+            />
           </div>
 
-          <div style="color: red !important;" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+          <div
+            style="color: red !important"
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          >
             <div *ngIf="email?.errors?.['required']">Email is required.</div>
-            <div *ngIf="email?.errors?.['pattern']">Invalid email format or missing domain extension.</div>
+            <div *ngIf="email?.errors?.['pattern']">
+              Invalid email format or missing domain extension.
+            </div>
           </div>
-
         </div>
 
         <div class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-3">
@@ -36,16 +43,29 @@
             <span class="input-group-text">
               <i class="bi bi-lock-fill"></i>
             </span>
-            <input [type]="showPassword ? 'text' : 'password'" autocomplete="off" class="form-control" formControlName="password" placeholder="Enter your password">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              autocomplete="off"
+              class="form-control"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
             <span class="input-group-text" (click)="togglePasswordVisibility()">
-              <i class="bi " [ngClass]="showPassword ? 'bi-eye-fill' : 'bi-eye-slash-fill' "></i>
+              <i
+                class="bi"
+                [ngClass]="showPassword ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+              ></i>
             </span>
           </div>
 
-          <div style="color: red !important;" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-            <div *ngIf="password?.errors?.['required']">Password is required.</div>
+          <div
+            style="color: red !important"
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+          >
+            <div *ngIf="password?.errors?.['required']">
+              Password is required.
+            </div>
           </div>
-
         </div>
 
         <div class="form-group mb-3 col-lg-10 col-md-12 col-sm-12 mb-5">
@@ -54,33 +74,80 @@
           </label>
         </div>
 
-        <div class="d-grid col-lg-6 col-md-6 col-sm-12 mx-auto mb-3 text-center">
+        <div
+          class="d-grid col-lg-6 col-md-6 col-sm-12 mx-auto mb-3 text-center"
+        >
+          <button
+            class="btn btn-lg text-white y4c-color mb-3"
+            [disabled]="loginform.invalid || isLoading"
+            type="submit"
+          >
+            <span *ngIf="!isLoading"> Login </span>
+            <span *ngIf="isLoading"> Please Wait ... </span>
+          </button>
+
+
+          <!-- <button
+            type="button"
+            class="btn btn-primary mb-5"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo"
+          >
+            Event Modal
+          </button> -->
+
+<!--
 
           <button
             class="btn btn-lg text-white y4c-color mb-3"
             [disabled]="loginform.invalid || isLoading"
-            type="submit">
-              <span *ngIf="!isLoading">
-                Login
-              </span>
-              <span *ngIf="isLoading">
-                Please Wait ...
-              </span>
-          </button>
+            type="submit"
+          >
+            <span *ngIf="!isLoading"> Event Modal </span>
+            <span *ngIf="isLoading"> Please Wait ... </span>
+          </button> -->
 
 
-          <label class="form-label">
-            Don't have an account?
-          </label>
+
+
+          <label class="form-label"> Don't have an account? </label>
           <label class="form-label">
             <a [routerLink]="['/register']">Create Account</a>
           </label>
         </div>
-
       </form>
     </div>
-
   </div>
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="../assets/images/bongis.jpg" frameborder="0" width="auto" height="auto">
+        <!-- <iframe src="../assets/images/bongis.jpg" frameborder="0" width="100%" height="100%"></iframe> -->
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
   <welcome-image></welcome-image>
 </div>

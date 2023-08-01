@@ -52,7 +52,7 @@ style="width: 300px; position: fixed; top: 0; left: 0; height: 100vh;">
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow pointer">
 
-          <ng-container *ngIf="role == 'admin'">
+          <ng-container *ngIf="role == 'ADMIN'">
 
             <li><a class="dropdown-item pointer" [routerLink]="['/admin']">Switch to Admin Profile</a>
             </li>
@@ -131,7 +131,7 @@ style="width: 300px; position: fixed; top: 0; left: 0; height: 100vh;">
                   <strong> {{ fullname }} </strong>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark text-small shadow pointer">
-                  <ng-container *ngIf="role == 'admin'">
+                  <ng-container *ngIf="role == 'ADMIN'">
 
                     <li><a class="dropdown-item pointer" [routerLink]="['/admin']">Switch to Admin Profile</a>
                     </li>

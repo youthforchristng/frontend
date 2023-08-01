@@ -132,6 +132,15 @@ export class RegisterComponent implements OnDestroy {
 
   @ViewChild('myInput') myInputVariable!: ElementRef;
 
+
+
+  //RESET "UPLOAD FILE" INPUT FIELD
+  reset() {
+    // console.log(this.myInputVariable.nativeElement.files);
+    this.myInputVariable.nativeElement.value = '';
+    // console.log(this.myInputVariable.nativeElement.files);
+  };
+
   onFileSelected(event: any) {
 
     if (event.target.files.length < 1) {

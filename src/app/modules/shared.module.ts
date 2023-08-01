@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 import { NightModeToggleComponent } from '../shared/night-mode-toggle/night-mode-toggle.component';
 import { RemoveMillisecondsPipe } from '../directives/remove-milliseconds.pipe';
+// import { LoginMediaComponent } from '../components/admin/login-media/login-media.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { RemoveMillisecondsPipe } from '../directives/remove-milliseconds.pipe';
     TableSkeletonLoaderComponent,
     ConfirmationDialogComponent,
     NightModeToggleComponent,
+    // LoginMediaComponent,
     RemoveMillisecondsPipe
   ],
   imports: [
@@ -54,6 +56,7 @@ import { RemoveMillisecondsPipe } from '../directives/remove-milliseconds.pipe';
     TableSkeletonLoaderComponent,
     ConfirmationDialogComponent,
     NightModeToggleComponent,
+    // LoginMediaComponent,
     RemoveMillisecondsPipe
   ],
   providers: [

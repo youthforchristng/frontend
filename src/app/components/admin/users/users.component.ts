@@ -21,7 +21,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
     private _alert: AlertService,
     private _snackbar: SnackbarService,
     private _storage: StorageService,
-    // private ngxLoader: NgxUiLoaderService,
+    private ngxLoader: NgxUiLoaderService,
     private loaderService: LoaderService,
   ) {
   }
@@ -156,10 +156,14 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
     // this.loaderService.showLoader()
     // this._storage.showBackgroundLoader();
 
+    this.ngxLoader.startBackground();
+
     const changeUserStatusObserver = {
       next: (response: any) => {
 
         // console.log(response);
+
+        this.ngxLoader.stopBackground();
 
         // this.loaderService.hideLoader()
         // this._storage.hideBackgroundLoader();
@@ -196,6 +200,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
       },
       error: (error: any) => {
         // this._storage.hideBackgroundLoader();
+        this.ngxLoader.stopBackground();
         this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
       }
     };

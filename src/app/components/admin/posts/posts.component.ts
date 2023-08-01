@@ -97,12 +97,74 @@ export class AdminPostsComponent {
     })
   };
 
+
+  deleteTopic(i: any){
+
+    console.log(i);
+
+    this._alert.are_you_sure()
+    .then((result)=>{
+      if(result.isConfirmed){
+
+        let data = {
+          id: i._id
+        };
+
+        console.log(data);
+
+
+        this.ngxLoader.startBackground('master');
+
+        const deleteTopicObserver = {
+          next: (response: any) => {
+
+            this.ngxLoader.stopBackground('master');
+
+            console.log(response);
+            console.log(this.postList);
+
+            if (response.statusCode == '00') {
+              let index = this.postList.findIndex((i: any) => {
+                return i._id === data.id
+              });
+              if (index > -1) {
+                this.postList.splice(index, 1);
+              };
+
+              console.log(this.postList);
+              this._snackbar.showSnackbar('Deleted', 'Close');
+
+              this.postList.length < 1 ? this.noPostList = true : this.noPostList = false ;
+
+            } else if (response.statusCode == '96') {
+              this._snackbar.showSnackbar(response.statusMessage, 'Close');
+            } else {
+              this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+            }
+          },
+          error: (error: any) => {
+            this.ngxLoader.stopBackground('master');
+            this._snackbar.showSnackbar('Opps! Something Went Wrong!', 'Close');
+          },
+        };
+
+        this.deleteTopicSubscription = this._api.delete_a_topic(data).subscribe(deleteTopicObserver);
+
+      };
+    })
+
+
+
+  }
+
   signout(){
     this._storage.signout();
   };
 
   find_topic_by_status(status: string){
     this.filteredStatus = status;
+
+    this.status = status;
 
     let data = {
       status: status
@@ -209,6 +271,8 @@ export class AdminPostsComponent {
     }
   };
 
+  status: string = 'Status'
+
   searchText: any = '';
 
   replies_count: any = '';
@@ -242,6 +306,7 @@ export class AdminPostsComponent {
   private fetchRepliesSubscription!: Subscription;
   private findTopicByStatusSubscription!: Subscription;
   private processTopicsSubscription!: Subscription;
+  private deleteTopicSubscription!: Subscription;
 
 
 
@@ -252,6 +317,9 @@ export class AdminPostsComponent {
     }
     if (this.findTopicByStatusSubscription) {
       this.findTopicByStatusSubscription.unsubscribe();
+    }
+    if (this.deleteTopicSubscription) {
+      this.deleteTopicSubscription.unsubscribe();
     }
     if (this.fetchRepliesSubscription) {
       this.fetchRepliesSubscription.unsubscribe();
