@@ -166,20 +166,21 @@
       <ng-container *ngIf="!isLoadingTopics && topics.length < 1">
         <div class="no-message">
           <div class="d-flex align-items-center justify-content-center">
-            <div class=" alert d-flex flex-column align-items-center justify-content-center bg-secondary-subtle" role="alert">
+            <div
+              class="alert d-flex flex-column align-items-center justify-content-center bg-secondary-subtle"
+              role="alert"
+            >
               <i class="bi bi-chat-dots-fill bi-2x mb-2"></i>
-              <h5>Be the first to add a topic</h5> 
+              <h5>Be the first to add a topic</h5>
             </div>
           </div>
         </div>
       </ng-container>
-      
-
     </div>
   </div>
 
   <!-- Message Box for Web  -->
-  <div class=" mb-5 page-message-box p-3 textarea-css">
+  <div class="page-message-box p-3 textarea-css">
     <div class="d-flex" style="width: 100%">
       <textarea
         [(ngModel)]="message"
@@ -215,7 +216,7 @@
   </div>
 
   <!-- Message Box for Mobile / Tablet  -->
-  <div class=" mb-5 page-message-box p-3 textarea-css-resp">
+  <div class="page-message-box p-3 textarea-css-resp">
     <div class="d-flex mt-3" style="width: 100%">
       <textarea
         [(ngModel)]="message"
@@ -224,7 +225,7 @@
         class="form-control me-3"
         style="padding-right: 14%; resize: none"
       >
-    </textarea>
+      </textarea>
 
       <button
         (click)="createNewTopic()"
@@ -247,6 +248,9 @@
       </button>
     </div>
   </div>
+
+  <!-- Extra Panel  -->
+  <div class="extra-panel">&nbsp;</div>
 </div>
 
 <!-- Slide out window for View Replies  -->
@@ -290,7 +294,7 @@
 
       <div
         class="reply-container p-3"
-        style="background-color: #fafafa; height: 55vh; overflow-y: auto"
+        style="background-color: #fafafa; height: 50vh; overflow-y: auto"
       >
         <label class="mb-3">
           <h5><strong>Topic Replies</strong></h5>
@@ -366,10 +370,12 @@
           </button>
         </div>
       </div>
+
+      <!-- Extra Panel  -->
+      <div class="extra-panel">&nbsp;</div>
     </div>
   </div>
 </div>
-
 
 <!-- Slide out window for Search Channel  -->
 <div
