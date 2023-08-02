@@ -136,6 +136,7 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
   };
 
   openChannelInfo(){
+    this.resetSearch();
     this.getUserList();
   };
 
@@ -242,6 +243,7 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
 
         if (response.statusCode === "00") {
           this.isLoadingTopics = false;
+          // console.log(this.isLoadingTopics);          
           this.topics = response.data;
           // this.filteredItems = this.topics;
           this.applySearchFilter(); // Call the applyFilter() function on component initialization
@@ -397,6 +399,7 @@ export class ChannelsComponent implements OnInit, OnChanges, OnDestroy {
   resetSearch(){
     this.searchText = '';
     this.filteredItems = [];
+    this.filteredUsers = [];
   };
 
   deleteTopic(i: any){

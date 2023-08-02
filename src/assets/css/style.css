@@ -11,9 +11,8 @@
     margin: 0;
 }
 
-html, body {
+body {
     font-family: 'DM Sans', sans-serif !important;
-    /* height: 100%; */
     margin: 0;
     padding: 0;
 }
@@ -32,7 +31,6 @@ html, body {
     text-align: left;
     font-size: 24px;
     color: #ffffff;
-    /* additional styling for the centered div */
 }
 
 .wrapper {
@@ -57,16 +55,13 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: darkslategrey !important;
+    background-color: darkslategrey;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    padding: 3rem;
-    max-width: 100%;
-    height: auto;
+    padding: 0px;
     overflow: hidden;
-    /* background: url(../images/youths.jpg); */
     background: url(../images/purple_bg.png);
     background-position: center !important;
     background-size: cover !important;
@@ -74,63 +69,12 @@ html, body {
 }
 
 
-.right-wrapper-media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: darkslategrey !important;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0px;
-  max-width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* background: url(../images/youths.jpg); */
-  /* background: url(../images/purple_bg.png); */
-  /* background-position: center !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important; */
-}
-
-
-.container-img
-{
-  display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background-color: darkslategrey !important; */
-    /* position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0px; */
-    max-width: 100%;
-    /* height: auto; */
-    overflow: hidden;
-    /* background: url(../images/youths.jpg); */
-    /* background: url(../images/purple_bg.png); */
-    background-position: center !important;
-    object-fit: cover !important;
-    /* background-repeat: repeat-x !important; */
-}
-
-
-.container-img img
-{
-  width: 100%;
-  height: auto;
-  /* display: block; */
-}
-
 
 .left-wrapper .logo .form-logo {
     margin-bottom: 50px;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    /* background-color: red; */
 }
 
 .right-side-img-container {
@@ -148,14 +92,9 @@ a {
 .left-sidebar {
     width: 250px;
     height: 100%;
-
-    /* width: 250px; */
-    /* background-color: #fff; */
     position: fixed;
     top: 0;
-    /* top: 75px; */
     left: 0;
-    /* z-index: 9; */
 }
 
 .main-container {
@@ -185,177 +124,72 @@ a {
 }
 
 
-
+/* Youth for Christ Colors  */
 
 .y4c-color {
-    /* color: #4F074F !important; */
     background-image: linear-gradient(to right, #480f5c, #5f1273, #79148a, #9313a1, #b00eb7) !important;
 }
 
 .y4c-text-color {
-    /* color: #4F074F !important; */
     color: #4F074F !important;
 }
 
-.topics-container {
-    overflow-y: auto;
-}
 
 
-.element-class::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
 
-/* Width and Height */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: #F1F1F1;
-    /* Change this to the desired track color */
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-    /* Change this to the desired handle color */
-    border-radius: 4px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    /* Change this to the desired handle color on hover */
-}
-
+/* Main Page Contents  */
 .page-content {
     width: calc(100% - 300px);
     left: 300px;
-    position: fixed;
+    position: relative;
     height: 100vh;
-
-
-    /* display: flex;
-    align-items: center;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    background-color: darkslategrey;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0px;
-    overflow: hidden; */
-    /* background: url(../images/youths.jpg); */
-    /* background: url(../images/purple_bg.png);
-    background-position: center !important;
-    background-size: cover !important;
-    background-repeat: repeat-x !important; */
-  }
-  /* overflow-y: auto; */
-
+    overflow-y: auto;
+}
 
 .page-headers {
     width: 100%;
-    max-width: 100%;
-    /* height: auto; */
-    /* height: 12vh; */
-    /* max-height: 12vh; */
-    position: fixed;
-    top: 0;
+    height: 15vh;
     background-color: #fcfcfc;
     box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
-    z-index: 1;
+}
+
+
+#side-btn {
+    display: none;
+}
+
+.bi-2x {
+    font-size: 24px;
+}
+
+.page-options {
+    position: absolute;
+    top: 20px;
+    right: 30px;
 }
 
 
 .page-body {
-  width: 100%;
-  max-width: 100%;
-  height: 100vh;
-  /* position: absolute; */
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.page-wrapper {
-  width: 100%;
-  height: 82vh;
-  position: absolute;
-  top: 8vh;
-  overflow-y: auto !important;
-  background-color: #ccc4d9 !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+    height: 75vh;
+    overflow-y: auto;
+    background-color: #efcaec;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
 }
 
-
-/* Main Chat  */
 .page-message-box {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  background-color: #fcfcfc;
-  box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
-  z-index: 1;
-
+    width: 100%;
+    height: 15vh;
+    background-color: #efcaec;
+    display: flex;
+    align-items: center;
+    justify-content: start;
 }
 
-.page-message-box textarea {
-  width: 100%;
-  max-height: 200px;
-  overflow-y: hidden;
-  resize: none;
-  margin: 0;
-
+.textarea-css-resp {
+    display: none;
 }
-
-
-/* Main Chat  */
-.reply-message-box {
-  bottom: 0;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
-  z-index: 1;
-
-}
-
-.reply-message-box textarea {
-  width: 100%;
-  max-height: 200px;
-  overflow-y: hidden;
-  resize: none;
-  margin: 0;
-
-}
-
-
-
-
-/*
-.night-mode {
-    background-color: #333333 !important;
-} */
-
-
-.page-description {
-    width: 80%;
-    word-wrap: break-word;
-}
-
-.page-options {
-    position: fixed;
-    top: 4px;
-    right: 10px;
-}
-
-
 
 .send-btn {
     align-self: center;
@@ -363,6 +197,8 @@ a {
 }
 
 
+
+/********************* CHAT *********************/
 
 /* Chat Bubble Received */
 
@@ -437,7 +273,6 @@ a {
     width: 50%;
 }
 
-
 .acct-name {
     margin: 0;
     font-size: 16px;
@@ -451,7 +286,6 @@ a {
 
 
 
-
 /* Landing Page Content  */
 
 .landing-page-body {
@@ -460,7 +294,7 @@ a {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .page-img {
@@ -468,42 +302,35 @@ a {
     height: 90vh;
 }
 
-.post {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-}
-
 .replies {
     padding: 10px 0;
 }
 
 
-.bi-2x
-{
-	font-size: 24px;
+/* OffCanvas CSS  */
+
+.canvas-container {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
 }
 
 
 
-/* Extra small devices (phones, 600px and down) */
+/* RESPONSIVENESS SECTION  */
 
-@media only screen and (max-width: 480px) {
-    .page-img {
-        width: 100%;
-        height: 50vh;
-    }
-}
-
-
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Small devices (portrait tablets and large phones, 992px and down) */
 @media only screen and (max-width: 992px) {
+
+    #side-btn {
+        display: block;
+    }
+
 
     /* Landing Page Content  */
 
     .page-img {
         width: 100%;
-        /* height: 50vh; */
     }
 
 
@@ -522,82 +349,52 @@ a {
         left: 0 !important;
         position: relative;
         height: 100vh;
-        overflow-y: auto;
+        overflow-y: hidden;
     }
 
     .page-headers {
         width: 100%;
-        /* height: 15vh; */
+        height: 10vh;
         background-color: #fcfcfc;
+        overflow: hidden;
         box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
-        z-index: 1;
-    }
-
-
-    .page-description {
-        width: 80%;
-        word-wrap: break-word;
+        /* z-index: 1; */
     }
 
     .page-options {
         position: absolute;
-        top: 4px;
-        right: 10px;
+        top: 20px;
+        right: 30px;
     }
 
+    .page-body {
+        height: 75vh;
+        overflow-y: auto;
+        background-color: #efcaec;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    }
+
+    .page-message-box {
+        width: 100%;
+        height: 15vh;
+        background-color: #efcaec;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+    
+    .textarea-css {
+        display: none;
+    }
+
+    .textarea-css-resp {
+        display: block;
+    }
+    
 
 
-    .landing-page-body {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* height: 100vh; */
-      overflow-y: auto;
-  }
-
-
-
-.page-body {
-  width: 100%;
-  max-width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.page-wrapper {
-  width: 100%;
-  height: 82vh;
-  position: absolute;
-  top: 7vh;
-  overflow-y: auto !important;
-  background-color: #ccc4d9 !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
-
-}
-
-.page-message-box {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  background-color: #fcfcfc;
-  box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
-  z-index: 1;
-
-}
-
-.page-message-box textarea {
-  width: 100%;
-  max-height: 200px;
-  overflow-y: hidden;
-  resize: none;
-  margin: 0;
-
-}
-
-
-
+/********************* CHAT *********************/
 
     .message {
         background-color: #fff;
@@ -613,33 +410,15 @@ a {
         padding: 10px;
         border-radius: 10px;
         margin-right: 10px;
-        width: 60%;
+        /* width: 60%; */
+        width: auto;
         max-width: 80%;
     }
 
-    #side-btn {
-        display: block;
-    }
 
+    /* Login Page  */
     .right-wrapper {
         display: none;
     }
-}
 
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    #side-btn {
-        display: none;
-    }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    #side-btn {
-        display: none;
-    }
 }

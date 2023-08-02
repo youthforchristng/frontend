@@ -1,48 +1,45 @@
-<!-- <div class="d-flex"> -->
+<!-- ============================================= -->
+<!-- ============================================= -->
+<!-- ============================================= -->
+<!-- ============================================= -->
 
-<!-- <app-sidebar></app-sidebar> -->
-
-<!-- <div *ngIf="activeRoom" class="page-content bg-secondary-subtle" [ngClass]="nightModeService.getNightModeClass()"  style="background-color: red;"> -->
-<div *ngIf="activeRoom" class="page-content bg-secondary-subtle">
+<div
+  *ngIf="activeRoom"
+  class="page-content bg-secondary-subtle"
+  style="height: 100vh; overflow-y: hidden"
+>
   <!-- Page Header Goes Here -->
-  <div class="page-headers p-3">
+  <div class="page-headers p-3" style="height: 10vh; overflow-y: hidden">
     <div class="page-title">
       <div class="d-flex">
         <button
-          class="navbar-toggler align-self-start"
           type="button"
           data-bs-toggle="offcanvas"
-          id="side-btn"
           data-bs-target="#offcanvasDarkNavbar"
+          id="side-btn"
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
+          class="navbar-toggler align-self-start"
         >
-          <i
-            class="bi bi-list bi-2x me-3"
-            style="color: #000000"
-            id="side-btn"
-          ></i>
+          <i class="bi bi-list bi-2x me-3" id="side-btn"></i>
         </button>
-
-        <div class="flex-column">
-          <h4>
-            <strong>
-              {{ activeRoom.serverName }}
-            </strong>
-          </h4>
-        </div>
+        <h4>
+          <strong>
+            {{ activeRoom.serverName }}
+          </strong>
+        </h4>
       </div>
 
       <div class="page-options">
         <a
           (click)="resetSearch()"
-          class="btn me-1"
+          class="btn"
           data-bs-toggle="offcanvas"
           href="#searchCanvas-item"
           role="button"
           aria-controls="searchCanvas-item"
         >
-          <i class="bi bi-search bi-2x text-primary"></i>
+          <i class="bi bi-search text-primary"></i>
         </a>
 
         <div class="btn-group">
@@ -52,17 +49,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="bi bi-three-dots-vertical bi-2x text-dark"></i>
+            <i class="bi bi-three-dots-vertical"></i>
           </button>
 
           <ul class="dropdown-menu">
             <li>
               <button
                 (click)="openChannelInfo()"
-                class="dropdown-item"
                 data-bs-toggle="offcanvas"
-                href="#channel-info" type="button"
+                href="#channel-info"
                 aria-controls="description-canvas"
+                type="button"
+                class="dropdown-item"
               >
                 Channel Info
               </button>
@@ -76,7 +74,6 @@
                 Leave Channel
               </button>
             </li>
-            <!-- <li><button class="dropdown-item" type="button">Report</button></li> -->
           </ul>
         </div>
       </div>
@@ -85,7 +82,7 @@
 
   <!-- Page Body Goes Here -->
   <div class="page-body">
-    <div class="page-wrapper px-3 py-4">
+    <div class="p-3">
       <ng-container *ngIf="isLoadingTopics">
         <div class="chat-bubble">
           <div class="message">
@@ -93,7 +90,7 @@
           </div>
         </div>
 
-        <div class="chat-bubble">
+        <div class="chat-bubble-sender">
           <div class="message">
             <skeleton-loader></skeleton-loader>
           </div>
@@ -115,8 +112,11 @@
             <div [ngClass]="userId == i.ownerId ? 'message-sender' : 'message'">
               <h4 class="acct-name fw-bold">
                 {{ i.ownerName }}
-
-                <div class="btn-group" *ngIf="(userId == i.ownerId) || (role == 'ADMIN')">
+                <!--  -->
+                <div
+                  class="btn-group"
+                  *ngIf="userId == i.ownerId || role == 'ADMIN'"
+                >
                   <button
                     class="btn"
                     type="button"
@@ -143,6 +143,7 @@
               <span class="time mb-3">
                 {{ i.createdAt | removeMilliseconds : "medium" }}
               </span>
+
               <p class="comment mb-3">
                 {{ i.topicDesc }}
               </p>
@@ -161,36 +162,78 @@
           </div>
         </ng-container>
       </ng-container>
+
+      <ng-container *ngIf="!isLoadingTopics && topics.length < 1">
+        <div class="no-message">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class=" alert d-flex flex-column align-items-center justify-content-center bg-secondary-subtle" role="alert">
+              <i class="bi bi-chat-dots-fill bi-2x mb-2"></i>
+              <h5>Be the first to add a topic</h5> 
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      
+
     </div>
   </div>
 
-  <!-- Page Message Box Goes Here -->
-  <div class="full-body">
-
-  </div>
-  <div class="page-message-box p-3">
-    <div class="d-flex">
-      <!-- <button class="send-btn btn text-white y4c-color d-flex">
-                  <i class="bi bi-paperclip"></i>
-              </button> -->
-
+  <!-- Message Box for Web  -->
+  <div class=" mb-5 page-message-box p-3 textarea-css">
+    <div class="d-flex" style="width: 100%">
       <textarea
         [(ngModel)]="message"
+        name="message"
         rows="2"
         placeholder="Send a message"
-        class="form-control mx-3"
+        class="form-control"
+        style="padding-right: 14%; resize: none"
       >
       </textarea>
 
       <button
         (click)="createNewTopic()"
-        class="send-btn btn text-white y4c-color d-flex custom-btn"
+        class="send-btn btn text-white y4c-color d-flex me-3 align-items-center justify-content-center"
+        style="position: absolute; right: 10px"
       >
         <ng-container *ngIf="!sendingMessage">
-          <span class="mx-3">Send</span>
-          <!-- <i class="bi bi-send-fill"></i> -->
+          <span class="me-3">Send</span>
           <i class="bi bi-arrow-right text-white"></i>
         </ng-container>
+
+        <ng-container *ngIf="sendingMessage">
+          <img
+            [src]="imageSpinner"
+            alt="Please Wait..."
+            style="margin-left: 30px; text-align: center !important"
+            width="20"
+            height="20"
+          />
+        </ng-container>
+      </button>
+    </div>
+  </div>
+
+  <!-- Message Box for Mobile / Tablet  -->
+  <div class=" mb-5 page-message-box p-3 textarea-css-resp">
+    <div class="d-flex mt-3" style="width: 100%">
+      <textarea
+        [(ngModel)]="message"
+        rows="2"
+        placeholder="Send a message"
+        class="form-control me-3"
+        style="padding-right: 14%; resize: none"
+      >
+    </textarea>
+
+      <button
+        (click)="createNewTopic()"
+        class="send-btn btn text-white y4c-color d-flex align-items-center justify-content-center col-3"
+      >
+        <!-- <ng-container *ngIf="!sendingMessage"> -->
+        <span class="me-3">Send</span>
+        <i class="bi bi-arrow-right text-white"></i>
+        <!-- </ng-container> -->
 
         <span *ngIf="sendingMessage">
           <img
@@ -202,147 +245,124 @@
           />
         </span>
       </button>
-      <!-- <button (click)="sendMessage()" class="send-btn btn text-white y4c-color d-flex">
-                  <span class="mx-3">Send</span>
-                  <i class="bi bi-send-fill text-white"></i>
-              </button> -->
     </div>
   </div>
 </div>
-<!-- </div> -->
 
 <!-- Slide out window for View Replies  -->
-<div
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  id="viewReplies-item"
-  aria-labelledby="viewReplies-canvas"
->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="search-canvas">
-      View Replies
-      <!-- to Topic -->
-    </h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
-  </div>
-
+<div class="canvas-container">
   <div
-    class="offcanvas-body flex-column"
-    style="height: 100vh; overflow-y: hidden"
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="viewReplies-item"
+    aria-labelledby="viewReplies-canvas"
   >
-    <div class="canvas-header" style="height: 70vh; overflow-y: auto">
-      <div class="post d-flex align-items-start mb-3">
+    <div style="height: 100vh">
+      <div
+        class="d-flex align-items-start p-3"
+        style="background-color: #fff; height: 25vh; overflow-y: auto"
+      >
         <img
           [src]="activeTopic.ownerProfilePic"
           alt="User Image"
           class="user-image"
         />
+
         <div class="mx-3">
           <h3 class="acct-name fw-bold">
             {{ activeTopic.ownerName }}
           </h3>
+
           <p class="custom-time mb-1">
             {{ activeTopic.createdAt | removeMilliseconds : "medium" }}
           </p>
-          <p class="comment mb-1">
+
+          <p class="comment mb-3">
             {{ activeTopic.topicDesc }}
           </p>
 
-          <div
-            *ngIf="!isLoadingReplies"
-            class="border-top bg-primary-subtle p-2 mb-3"
-          >
+          <div class="border-top bg-primary-subtle p-2 mb-3">
             <strong>{{ replyCount }}</strong>
             {{ replyCount !== 1 ? "replies" : "reply" }}
           </div>
         </div>
       </div>
 
-      <ng-container style="background-color: black" *ngIf="isLoadingReplies">
-        <skeleton-loader></skeleton-loader>
-        <skeleton-loader></skeleton-loader>
-      </ng-container>
+      <div
+        class="reply-container p-3"
+        style="background-color: #fafafa; height: 55vh; overflow-y: auto"
+      >
+        <label class="mb-3">
+          <h5><strong>Topic Replies</strong></h5>
+        </label>
 
-      <ng-container *ngIf="!isLoadingReplies">
-        <ng-container *ngFor="let i of replies">
-          <div class="reply-container" style="height: auto">
+        <ng-container style="background-color: black" *ngIf="isLoadingReplies">
+          <skeleton-loader></skeleton-loader>
+          <skeleton-loader></skeleton-loader>
+        </ng-container>
+
+        <ng-container *ngIf="!isLoadingReplies">
+          <ng-container *ngFor="let i of replies">
             <div class="replies">
               <div class="d-flex align-items-start">
                 <img [src]="i.profilePic" alt="User Image" class="user-image" />
                 <div class="mx-3">
                   <h3 class="acct-name fw-bold">{{ i.username }}</h3>
+
                   <p class="custom-time mb-1">
                     {{ i.time | removeMilliseconds : "medium" }}
                   </p>
-                  <p class="comment">{{ i.text }}</p>
 
+                  <p class="comment mb-2">
+                    {{ i.text }}
+                  </p>
                 </div>
-
-                <!-- <button
-                  class="btn"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="bi bi-three-dots"></i>
-                </button> -->
-                <!-- <div class="btn-group">
-
-                  <button
-                    class="btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="bi bi-chevron-down text-dark"></i>
-                  </button>
-
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        (click)="deleteTopic(i)"
-                        class="dropdown-item"
-                        type="button"
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div> -->
               </div>
             </div>
-          </div>
-
-          <!-- <hr /> -->
+          </ng-container>
         </ng-container>
-      </ng-container>
-    </div>
+      </div>
 
-    <div class="canvas-header" style="height: 20vh">
-      <div class="reply-message-box mb-3" *ngIf="!isLoadingReplies">
-        <div class="flex-column">
-          <textarea
-            (keyup)="newReply()"
-            rows="2"
-            placeholder="Send a reply"
-            [(ngModel)]="reply"
-            class="form-control mb-3"
-          ></textarea>
-          <div *ngIf="emptyReply" style="color: red" class="mb-1">
-            Reply can not be empty
-          </div>
+      <!-- <hr> -->
+
+      <div
+        class="page-message-box"
+        style="
+          background-color: #e5caef;
+          height: 20vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        "
+      >
+        <textarea
+          (keyup)="newReply()"
+          [(ngModel)]="reply"
+          name="reply"
+          rows="2"
+          placeholder="Send a reply"
+          class="form-control mb-3"
+          style="resize: none"
+        >
+        </textarea>
+
+        <div class="d-flex align-items-center justify-content-center">
           <button
             (click)="sendReply()"
-            class="send-btn btn text-white y4c-color d-flex align-items-center justify-content-center col-12"
+            class="send-btn btn text-white y4c-color d-flex col-8 me-3 align-items-center justify-content-center"
           >
-            <span class="me-3">Send</span>
-            <!-- <i class="bi bi-send-fill"></i> -->
+            <span class="me-3">Send Reply</span>
             <i class="bi bi-arrow-right text-white"></i>
+          </button>
+
+          <button
+            class="btn text-danger btn-outline-danger bg-white col-4 d-flex align-items-center justify-content-center"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          >
+            <span>Close</span>
           </button>
         </div>
       </div>
@@ -381,7 +401,10 @@
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="btn y4c-color text-white" type="submit">Search</button>
+      <span style="padding-top: 2.5%">
+        <i class="bi bi-search text-primary"></i>
+      </span>
+      <!-- <button class="btn y4c-color text-white" type="submit">Search</button> -->
     </form>
 
     <ng-container *ngFor="let i of filteredItems">
@@ -474,31 +497,32 @@
 
       <ng-container *ngIf="!!noUserList">
         <div
-        class="no-data-text bg-light-grey"
-        style="text-align: center;
-        vertical-align: middle;
-        padding-top: 5%;
-        padding-bottom: 5%;
-        font-weight: bolder;"
+          class="no-data-text bg-light-grey"
+          style="
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            font-weight: bolder;
+          "
         >
-        No User found
+          No User found
         </div>
       </ng-container>
 
       <ng-container *ngIf="filteredUsers.length < 1 && !noUserList">
-        <div class="members-list p-1 border-bottom" *ngFor="let info of userList">
+        <div
+          class="members-list p-1 border-bottom"
+          *ngFor="let info of userList"
+        >
           <div class="member-item d-flex">
-            <img
-              [src]="info.profilePic"
-              alt="User Image"
-              class="user-image"
-            />
+            <img [src]="info.profilePic" alt="User Image" class="user-image" />
 
             <h4
               class="acct-name fw-bold"
               style="align-self: center; margin-left: 10px"
             >
-              {{info.name}}
+              {{ info.name }}
             </h4>
 
             <div class="flex-grow"></div>
@@ -526,26 +550,23 @@
                 </li>
               </ul>
             </div> -->
-
           </div>
         </div>
       </ng-container>
 
-
       <ng-container *ngIf="filteredUsers.length > 0 && !noUserList">
-        <div class="members-list p-1 border-bottom" *ngFor="let info of filteredUsers">
+        <div
+          class="members-list p-1 border-bottom"
+          *ngFor="let info of filteredUsers"
+        >
           <div class="member-item d-flex">
-            <img
-              [src]="info.profilePic"
-              alt="User Image"
-              class="user-image"
-            />
+            <img [src]="info.profilePic" alt="User Image" class="user-image" />
 
             <h4
               class="acct-name fw-bold"
               style="align-self: center; margin-left: 10px"
             >
-              {{info.name}}
+              {{ info.name }}
             </h4>
 
             <div class="flex-grow"></div>
@@ -573,15 +594,20 @@
                 </li>
               </ul>
             </div> -->
-
           </div>
         </div>
       </ng-container>
     </div>
 
     <div *ngIf="isLoadingUserList">
-      <img [src]="imageSpinner" alt="Please Wait ..." style="margin: 10px !important;" class="rounded-circle"
-      width="15" height="15">
+      <img
+        [src]="imageSpinner"
+        alt="Please Wait ..."
+        style="margin: 10px !important"
+        class="rounded-circle"
+        width="15"
+        height="15"
+      />
     </div>
   </div>
 </div>
