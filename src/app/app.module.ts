@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { SharedModule } from "./modules/shared.module";
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 import { AppComponent } from './app.component';
 import { NgPipesModule } from 'ngx-pipes';
 
@@ -23,15 +25,15 @@ import { RouterModule } from '@angular/router';
 // import { LoginMediaComponent } from './components/admin/login-media/login-media.component';
 // import { RemoveMillisecondsPipe } from './directives/remove-milliseconds.pipe';
 
-const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  // Configuration options for ngx-ui-loader
-  blur: 15,
-  // bgsOpacity: 0, // Set the desired opacity for the foreground spinner overlay
-  fgsColor: 'purple', // Set the desired color for the foreground spinner (progress bar)
+// const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+//   // Configuration options for ngx-ui-loader
+//   blur: 15,
+//   // bgsOpacity: 0, // Set the desired opacity for the foreground spinner overlay
+//   fgsColor: 'purple', // Set the desired color for the foreground spinner (progress bar)
 
-  // For example, you can set the loader type and color here
-  // Refer to ngx-ui-loader documentation for available options
-};
+//   // For example, you can set the loader type and color here
+//   // Refer to ngx-ui-loader documentation for available options
+// };
 
 @NgModule({
   declarations: [
@@ -55,10 +57,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatDialogModule,
     NgPipesModule,
     HttpClientModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig), // Import NgxUiLoaderModule and configure it
+    NgxUiLoaderModule, //.forRoot(ngxUiLoaderConfig), // Import NgxUiLoaderModule and configure it
     NgxUiLoaderRouterModule // Import NgxUiLoaderRouterModule to handle navigation loader
   ],
-  providers: [],
+  providers: [
+
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

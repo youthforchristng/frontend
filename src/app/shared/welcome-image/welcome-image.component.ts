@@ -22,7 +22,7 @@ export class WelcomeImageComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit(): void {
-    this.getMedia();
+    // this.getMedia();
   };
 
 
