@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,500;1,700&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+
+@font-face {
+    font-family: 'Neue Montreal', sans-serif;
+    src: url(../fonts/NeueMontreal/NeueMontreal-Bold.otf), format('opentype');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif !important;
+    margin: 0;
+    padding: 0;
+}
+
+
+.glassmorphism-container {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 70%;
+}
+
+.centered-div {
+    text-align: left;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.main-color {
+    background-color: #4F074F;
+}
+
+.login-bground {
+    background-color: #ffffff;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.left-wrapper {
+    background-color: #fff;
+}
+
+.right-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkslategrey;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0px;
+    overflow: hidden;
+    background: url(../images/purple_bg.png);
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: repeat-x !important;
+}
+
+
+
+.left-wrapper .logo .form-logo {
+    margin-bottom: 50px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.right-side-img-container {
+    opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+    width: 100%;
+    position: relative;
+}
+
+
+a {
+    text-decoration: none !important;
+}
+
+.left-sidebar {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main-container {
+    /* flex: 1 1 auto; */
+    width: calc(100% - 250px);
+    position: relative;
+    left: 250px;
+}
+
+.notification {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+.count {
+    position: absolute;
+    top: -12px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* Youth for Christ Colors  */
+
+.y4c-color {
+    background-image: linear-gradient(to right, #480f5c, #5f1273, #79148a, #9313a1, #b00eb7) !important;
+}
+
+.y4c-text-color {
+    color: #4F074F !important;
+}
+
+
+
+
+
+/* Main Page Contents  */
+.page-content {
+    width: calc(100% - 300px);
+    left: 300px;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.page-headers {
+    width: 100%;
+    height: 15vh;
+    background-color: #fcfcfc;
+    box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
+}
+
+
+#side-btn {
+    display: none;
+}
+
+.bi-2x {
+    font-size: 24px;
+}
+
+.page-options {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+
+.page-body {
+    height: 67vh;
+    overflow-y: auto;
+    background-color: #efcaec;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+}
+
+.page-message-box {
+    width: 100%;
+    height: 15vh;
+    background-color: #efcaec;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.textarea-css-resp {
+    display: none;
+}
+
+.send-btn {
+    align-self: center;
+    padding: 10px;
+}
+
+.extra-panel
+{
+  height: 5vh;
+  background-color: #efcaec;
+}
+
+
+/********************* CHAT *********************/
+
+/* Chat Bubble Received */
+
+.chat-bubble {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.message {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    width: auto;
+    max-width: 70%;
+}
+
+.acct-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.comment {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.time {
+    font-size: 12px;
+    color: #454545;
+}
+
+
+/* Chat Bubble Sent */
+
+.chat-bubble-sender {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+}
+
+.chat-bubble-sender::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #F4F4F4 transparent;
+}
+
+.user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.message-sender {
+    background-color: #d9fdd3;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    width: 50%;
+}
+
+.acct-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.comment {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+
+
+/* Landing Page Content  */
+
+.landing-page-body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.page-img {
+    width: 45vw;
+    height: 90vh;
+}
+
+.replies {
+    padding: 10px 0;
+}
+
+
+/* OffCanvas CSS  */
+
+.canvas-container {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+
+/* RESPONSIVENESS SECTION  */
+
+/* Small devices (portrait tablets and large phones, 992px and down) */
+@media only screen and (max-width: 992px) {
+
+    #side-btn {
+        display: block;
+    }
+
+
+    /* Landing Page Content  */
+
+    .page-img {
+        width: 100%;
+    }
+
+
+    #offcanvasDarkNavbar {
+        width: 300px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+    }
+
+
+    /* Main Page Content  */
+    .page-content {
+        width: 100%;
+        left: 0 !important;
+        position: relative;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .page-headers {
+        width: 100%;
+        height: 10vh;
+        background-color: #fcfcfc;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(76, 76, 225, 0.1);
+        /* z-index: 1; */
+    }
+
+    .page-options {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+    }
+
+    .page-body {
+        height: 75vh;
+        overflow-y: auto;
+        background-color: #efcaec;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23e8e1f3' fill-opacity='0.3' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    }
+
+    .page-message-box {
+        width: 100%;
+        height: 15vh;
+        background-color: #efcaec;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .textarea-css {
+        display: none;
+    }
+
+    .textarea-css-resp {
+        display: block;
+    }
+
+
+    .extra-panel
+    {
+      height: 8vh;
+      background-color: #efcaec;
+    }
+
+
+/********************* CHAT *********************/
+
+    .message {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 10px;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .message-sender {
+        background-color: #d9fdd3;
+        padding: 10px;
+        border-radius: 10px;
+        margin-right: 10px;
+        /* width: 60%; */
+        width: auto;
+        max-width: 80%;
+    }
+
+
+    /* Login Page  */
+    .right-wrapper {
+        display: none;
+    }
+
+}
